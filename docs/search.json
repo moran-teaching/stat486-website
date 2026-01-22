@@ -1,0 +1,129 @@
+[
+  {
+    "objectID": "nb/lec1.html",
+    "href": "nb/lec1.html",
+    "title": "Lecture 1 - Monte Carlo",
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats",
+    "crumbs": [
+      "Home",
+      "Lecture 1 - Monte Carlo"
+    ]
+  },
+  {
+    "objectID": "nb/lec1.html#permutation-tests",
+    "href": "nb/lec1.html#permutation-tests",
+    "title": "Lecture 1 - Monte Carlo",
+    "section": "Permutation tests",
+    "text": "Permutation tests\n\nExample 1.2: simple binomial test\n\nnum_simulation = 1000\nnum_tosses = 6\nobs_num_heads = 1\n\nall_results = np.zeros(num_simulation)\n\nfor cur_sim in range(num_simulation):\n    cur_tosses = np.zeros(num_tosses)\n    for i in range(num_tosses):\n        cur_tosses[i] = np.random.choice([0, 1])\n\n    all_results[cur_sim] = np.sum(cur_tosses)\n\nsim_pval = np.sum(all_results &lt;= obs_num_heads) / num_simulation\n\nprint(f\"Simulated p-value: {sim_pval}\")\n\nSimulated p-value: 0.106\n\n\nPlotting the distribution of the test statistic under the null\n\nbins = np.arange(all_results.min(), all_results.max() + 2) - 0.5\n\nplt.hist(all_results, rwidth=.7, bins=bins)\nplt.axvline(obs_num_heads, color='red')\nplt.show()\n\nprint(bins)\n\n\n\n\n\n\n\n\n[-0.5  0.5  1.5  2.5  3.5  4.5  5.5  6.5]\n\n\n\n\nExample 1.3: A/B Testing\n\nn_sim = 1000\n\nmy_viewsA = 98\nmy_viewsB = 162\nall_views = my_viewsA + my_viewsB\n\nn_impsA = 1000\nn_impsB = 2000\nall_imps = n_impsA + n_impsB\n\nobs_T = abs(my_viewsA / n_impsA - my_viewsB / n_impsB)\n\nnull_Ts = np.zeros(n_sim) ## what we called \"all_results\" from before\n\nfor cur_sim in range(n_sim):\n    pool = np.array([1] * all_views + [0] * (all_imps - all_views))\n    impsA = np.random.choice(pool, n_impsA, replace=False)\n    viewsA = np.sum(impsA)\n    viewsB = all_views - viewsA\n\n    diff = viewsA / n_impsA - viewsB / n_impsB\n    null_Ts[cur_sim] = diff\n\nsim_pval = np.sum(np.abs(null_Ts) &gt;= np.abs(obs_T)) / n_sim\n\nprint(f\"Simulated p-value: {sim_pval}\")\n\nplt.hist(null_Ts, bins=12)\nplt.axvline(abs(obs_T), color='red')\nplt.show()\n\nSimulated p-value: 0.137\n\n\n\n\n\n\n\n\n\n\n\nExample 1.4: independence test for contingency tables\n\nK1 = 3\nK2 = 2\n\ncon_table = [[350, 1200, 450], \n             [20, 120, 60]]\n\ncon_table = np.array(con_table)\n\ncolumn_sums = np.sum(con_table, axis=0)\nrow_sums = np.sum(con_table, axis=1)\n\n\n## compute chi-squared test statistic\nE = np.zeros((K2, K1))\nfor i in range(K2):\n    for j in range(K1):\n        E[i, j] = row_sums[i] * column_sums[j] / np.sum(con_table)\n\nobs_T = np.sum((con_table - E)**2 / E)\n\nn = int(np.sum(con_table))\n\n\n## convert contingency table to data pairs\ndata_pairs = []\nfor i in range(K2):\n    for j in range(K1):\n        for _ in range(int(con_table[i, j])):\n            data_pairs.append([i, j])\ndata_pairs = np.array(data_pairs)\n\n\nn_sim = 1000\n\nall_null_Ts = np.zeros(n_sim)\n\nfor cur_sim in range(n_sim):\n    ## permute the first column of data_pairs\n    cur_sim_data = np.column_stack((np.random.choice(data_pairs[:, 0], n, replace=False), data_pairs[:, 1]))\n\n    ## convert cur_sim_data to contingency table\n    cur_sim_con_table = np.zeros((K2, K1))\n    for i in range(n):\n        cur_sim_con_table[cur_sim_data[i, 0], cur_sim_data[i, 1]] += 1\n    \n    null_T = np.sum((cur_sim_con_table - E)**2 / E)\n    all_null_Ts[cur_sim] = null_T\n\nprint(cur_sim_con_table)\n\n## compute p-value\np_value = np.mean(all_null_Ts &gt;= obs_T)\nprint(f\"Simulated p-value using test statistic 1 = {p_value}\")\n\nplt.hist(all_null_Ts, bins=12)\nplt.axvline(obs_T, color='red')\n\n[[ 332. 1205.  463.]\n [  38.  115.   47.]]\nSimulated p-value using test statistic 1 = 0.011\n\n\n\n\n\n\n\n\n\n\n## Use traditional pearson chi-squared test\nfrom scipy.stats import chi2_contingency\n\nchi2, p, dof, expected = chi2_contingency(con_table)\nprint(f\"CLT-based p-value = {p:.4f}\")\n\nCLT-based p-value = 0.0053\n\n\n\n\nExample 1.5: independence test for continuous data\n\n# Creating the X matrix\nX = np.array([[2.5, 2.7], [4, 4.0], [5, 3.2], [1, 2.7], [3, 3.2], [2, 2.4], [1.5, 2.1]])\n\n## plot variable X[, 0] vs X[, 1]\nplt.scatter(X[:, 0], X[:, 1])\nplt.xlabel(\"X1\")\nplt.ylabel(\"X2\")\n\nnp.corrcoef(X[:, 0], X[:, 1])[0, 1]\n\nnp.float64(0.7350457786848433)\n\n\n\n\n\n\n\n\n\n\nn = X.shape[0]\n\n# Calculating the correlation of the original data\nobs_T = np.corrcoef(X[:, 0], X[:, 1])[0, 1]\n\nn_sim = 1000\n\nnull_Ts = np.zeros(n_sim)\n\nfor cur_sim in range(n_sim):\n    # Shuffling only the first column of X\n    Xprime = np.column_stack((np.random.choice(X[:, 0], n, replace=False), X[:, 1]))\n    null_Ts[cur_sim] = np.corrcoef(Xprime[:, 0], Xprime[:, 1])[0, 1]\n\n# Calculating the proportion of simulations where the absolute correlation is greater than my_corr\nsim_pval = np.sum(np.abs(null_Ts) &gt;= obs_T) / n_sim\n\nprint(f\"Simulated p-value: {sim_pval}\")\n\nplt.hist(null_Ts, bins=12)\nplt.axvline(obs_T, color='red')\nplt.show()\n\nSimulated p-value: 0.046",
+    "crumbs": [
+      "Home",
+      "Lecture 1 - Monte Carlo"
+    ]
+  },
+  {
+    "objectID": "nb/lec1.html#the-bootstrap",
+    "href": "nb/lec1.html#the-bootstrap",
+    "title": "Lecture 1 - Monte Carlo",
+    "section": "The Bootstrap",
+    "text": "The Bootstrap\nThe bootstrap is a useful tool to approximate the uncertainty associated with an estimator or statistical learning method. The key idea of the bootstrap is to approximate the population distribution with the sample distribution.\n\nExample 1.7: confidence interval for the mean\nWe have a sample and we calculate a sample estimate. How do we quantify the uncertainty of this method?\n\n# draw sample\nnp.random.seed(42)\nn = 30\nx = np.random.exponential(scale=1, size=n)  \n\n# calculate sample estimate\nmuhat = np.mean(x)\n#muhat = np.median(x)\n\n# get population distribution for plotting\nx_vals = np.linspace(0, 10, 100)\npdf_vals = scipy.stats.expon.pdf(x_vals)\n\nplt.figure(figsize=(5,4))\nplt.plot(x_vals, pdf_vals, 'r', label='Population')\nplt.hist(x, density=True, label='Sample', bins=20)\nplt.title('Exponential Distribution')\nplt.legend()\n\n\n\n\n\n\n\n\nThe bootstrap approximates the population distribution with the sample distribution. We draw with replacement from the sample distribution to obtain a sample. Doing this many times allows us to quantify the uncertainty associated with our estimator!\n\n\nn_boot = 1000\n\nboot_muhats = np.zeros(n_boot)\n\nfor cur_boot in range(n_boot):\n    xboot = np.random.choice(x, n, replace=True)\n    boot_muhats[cur_boot] = np.mean(xboot)\n    #boot_muhats[cur_boot] = np.median(xboot)\n\nboot_std = np.std(boot_muhats)\nconf_interval = [muhat - 2 * boot_std, muhat + 2 * boot_std]\n\nprint(f\"Estimated: {muhat:.3f}\")\nprint(f\"Bootstrap standard deviation: {boot_std:.3f}\")\nprint(f\"Bootstrap confidence interval: ({conf_interval[0]:.3f}, {conf_interval[1]:.3f})\")\n\nEstimated: 0.806\nBootstrap standard deviation: 0.152\nBootstrap confidence interval: (0.502, 1.109)\n\n\n\n# Plotting the histogram of boot_muhats\nplt.figure(figsize=(5,4))\nplt.hist(boot_muhats, bins=20, color='green')\nplt.xlabel('Bootstrapped estimates')\nplt.ylabel('Frequency')\nplt.title('Histogram of bootstrap estimates')\nplt.axvline(conf_interval[0], color='red', linestyle='dashed', linewidth=2)\nplt.axvline(conf_interval[1], color='red', linestyle='dashed', linewidth=2)\nplt.show()\n\n\n\n\n\n\n\n\n\n\nExample 1.8: verifying the validity of bootstrap confidence intervals\n\nn_sim = 1000\nsuccesses = np.zeros(n_sim)\n\nfor cur_sim in range(n_sim):\n    n = 50\n    x = np.random.poisson(lam=1, size=n)  # Poisson distribution with lambda=1\n    mu = 1\n\n    muhat = np.mean(x)\n\n    n_boot = 500\n    boot_muhats = np.zeros(n_boot)\n    \n    for cur_boot in range(n_boot):\n        xboot = np.random.choice(x, n, replace=True)\n        boot_muhats[cur_boot] = np.mean(xboot)\n\n    boot_std = np.std(boot_muhats) \n    boot_ci = [muhat - 2 * boot_std, muhat + 2 * boot_std]\n    \n    if boot_ci[0] &lt;= mu &lt;= boot_ci[1]:\n        successes[cur_sim] = 1\n\npercent_success = np.sum(successes) / n_sim\n\nprint(f\"Percent of experiments where the confidence interval contains the true mean: {percent_success}\")\n\nPercent of experiments where the confidence interval contains the true mean: 0.942\n\n\n\n\nExample 1.9 and 1.10: bootstrap tests for the mean\n\nX = np.array([0.2, -1.9, 1.4, -2.7, -1.7, -1.4, 0.3, 1.2, -1.1, -0.2, -2.1])\nn = len(X)\n\nn_boot = 1000\n\nprint(f\"mean of X: {np.mean(X):.3f}  with n={n}\")\n\nobs_T = abs(np.mean(X))\n\nXc = X - np.mean(X)\n\nboot_Ts = np.zeros(n_boot)\n\nfor cur_boot in range(n_boot):\n  Xboot = np.random.choice(Xc, n, replace=True)\n  boot_Ts[cur_boot] = abs(np.mean(Xboot))\n\nboot_pval = sum(boot_Ts &gt;= obs_T)/n_boot\n\nprint(f\"bootstrap p-value: {boot_pval}\")\n\nplt.hist(boot_Ts, bins=12)\nplt.axvline(np.abs(obs_T), color='red', linestyle='dashed')\n\nplt.show()\n\nmean of X: -0.727  with n=11\nbootstrap p-value: 0.078\n\n\n\n\n\n\n\n\n\n\nX = np.array([-1, 3, 5, 1, 10, 2, 9, 6, 6, 2, 4])\nY = np.array([11, -2, 1, 0, 0, 5, 2])\n\nn = len(X)\nm = len(Y)\n\nn_boot = 1000\n\nXc = X - np.mean(X)\nYc = Y - np.mean(Y)\n\nprint(f\"mean of X: {np.mean(X):.3f},  mean of Y: {np.mean(Y):.3f}\")\n\nobs_T = np.mean(X) - np.mean(Y)\n\nboot_Ts = np.zeros(n_boot)\n\nfor cur_boot in range(n_boot):\n  Xboot = np.random.choice(Xc, n, replace=True)\n  Yboot = np.random.choice(Yc, m, replace=True)\n  boot_Ts[cur_boot] = np.mean(Xboot) - np.mean(Yboot)\n\nboot_pval = sum(np.abs(boot_Ts) &gt;= np.abs(obs_T))/n_boot\n\nprint(f\"bootstrap p-value: {boot_pval}\")\n\nplt.hist(boot_Ts, bins=12)\nplt.axvline(np.abs(obs_T), linestyle='dashed', color='red')\n\nplt.show()\n\nmean of X: 4.273,  mean of Y: 2.429\nbootstrap p-value: 0.322",
+    "crumbs": [
+      "Home",
+      "Lecture 1 - Monte Carlo"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Rutgers STAT-486 - Statistical Learning",
+    "section": "",
+    "text": "Instructor: Gemma Moran\nInstructor website: link"
+  },
+  {
+    "objectID": "index.html#spring-2026",
+    "href": "index.html#spring-2026",
+    "title": "Rutgers STAT-486 - Statistical Learning",
+    "section": "",
+    "text": "Instructor: Gemma Moran\nInstructor website: link"
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "Rutgers STAT-486 - Statistical Learning",
+    "section": "Getting started",
+    "text": "Getting started\nSee here for details about how to get started with python, VSCode and PyTorch."
+  },
+  {
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Rutgers STAT-486 - Statistical Learning",
+    "section": "Lectures",
+    "text": "Lectures\nThe code from the lectures is in the left sidebar.\nLecture slides and information about homeworks, office hours etc. can be found on Canvas."
+  },
+  {
+    "objectID": "nb/getting-started.html",
+    "href": "nb/getting-started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "We will use Python via the Anaconda distribution.\nDownload Anaconda here.\n\n\n\n\n\n\nNote\n\n\n\nThere are a variety of different Python distributions; for statistics and machine learning, we recommend Anaconda as it comes with many useful packages pre-installed.\n(It is also a good idea NOT to use your computer’s pre-installed Python - you don’t want to accidentally change any system settings!)\n\n\nAnaconda requires a few GBs of storage - a more lightweight version is Miniconda, which you can download here.",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "nb/getting-started.html#anaconda-installation",
+    "href": "nb/getting-started.html#anaconda-installation",
+    "title": "Getting started",
+    "section": "",
+    "text": "We will use Python via the Anaconda distribution.\nDownload Anaconda here.\n\n\n\n\n\n\nNote\n\n\n\nThere are a variety of different Python distributions; for statistics and machine learning, we recommend Anaconda as it comes with many useful packages pre-installed.\n(It is also a good idea NOT to use your computer’s pre-installed Python - you don’t want to accidentally change any system settings!)\n\n\nAnaconda requires a few GBs of storage - a more lightweight version is Miniconda, which you can download here.",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "nb/getting-started.html#vscode",
+    "href": "nb/getting-started.html#vscode",
+    "title": "Getting started",
+    "section": "VSCode",
+    "text": "VSCode\nThere are a number of Python IDEs (integrated development environments). In class, we will be using VSCode (download here).\n\nDownload lecture-1.ipynb here and open it in VSCode.\nTo use your msds534 environment, on the top right hand corner, click “Select Kernel” &gt; “Python Environments” &gt; msds534. If it prompts you to install ipykernel, follow the prompts to install it.\n\nJupyter notebooks (.ipynb files) are useful to combine code cells with text (as markdown cells).\nVSCode also has a Python interactive window (details here).",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "nb/getting-started.html#managing-packages",
+    "href": "nb/getting-started.html#managing-packages",
+    "title": "Getting started",
+    "section": "Managing packages",
+    "text": "Managing packages\nThere are many open source Python packages for statistics and machine learning.\nTo download packages, two popular package managers are Conda and Pip. Both Conda and Pip come with the Anaconda distribution.\nConda is a general-purpose package management system, designed to build and manage software of any type from any language. This means conda can take advantage of many non-python packages (like BLAS, for linear algebra operations).\nPip is a package manager for python. You may see people using pip with environments using virtualenv or venv.\nWe recommend:\n\nuse a conda environment\nwithin this environment, use conda to install base packages such as pandas and numpy\nif a package is not available via conda, then use pip\n\nSee here for some conda vs pip misconceptions, and why conda is helpful.",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "nb/getting-started.html#environments",
+    "href": "nb/getting-started.html#environments",
+    "title": "Getting started",
+    "section": "Environments",
+    "text": "Environments\n\nAbout\nIt is good coding practice to use virtual environments with Python. From this blog:\n\nA Python virtual environment consists of two essential components: the Python interpreter that the virtual environment runs on and a folder containing third-party libraries installed in the virtual environment. These virtual environments are isolated from the other virtual environments, which means any changes on dependencies installed in a virtual environment don’t affect the dependencies of the other virtual environments or the system-wide libraries. Thus, we can create multiple virtual environments with different Python versions, plus different libraries or the same libraries in different versions.\n\n\n\n\nCreating an environment for STAT-486\nWe recommend creating a virtual environment for your STAT-486 coding projects. This way, you can have an environment with all the necessary packages and you can easily keep track of what versions of the packages you used.\n\nOpen Terminal (macOS) or a shell\nCreate an environment called stat486 using Conda with the command: conda create --name stat486\nTo install packages in your environment, first activate your environment: conda activate stat486\nThen, install the following packages using the command: conda install numpy pandas scikit-learn matplotlib seaborn jupyter ipykernel\nInstall PyTorch by running the appropriate command from here (for macOS, the command is: pip3 install torch torchvision)\nTo exit your environment: conda deactivate\n\nHere is a helpful cheatsheet for conda environment commands.\nFor more details about the shell / bash, here is a helpful resource.",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "nb/getting-started.html#learning-python",
+    "href": "nb/getting-started.html#learning-python",
+    "title": "Getting started",
+    "section": "Learning Python",
+    "text": "Learning Python\nHere are some resources for learning Python:\n\nNumpy\nPandas\nObject-oriented programming",
+    "crumbs": [
+      "Home",
+      "Getting started"
+    ]
+  }
+]
