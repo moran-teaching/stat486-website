@@ -278,7 +278,7 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>&lt;torch._C.Generator at 0x11cc94410&gt;</code></pre>
+<pre><code>&lt;torch._C.Generator at 0x12031c3f0&gt;</code></pre>
 </div>
 </div>
 <section id="warm-up" class="level2">
@@ -290,7 +290,7 @@ window.Quarto = {
 <div id="cell-5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>6</code></pre>
+<pre><code>5</code></pre>
 </div>
 </div>
 <p>Let’s repeat this 10,000 times.</p>
@@ -316,7 +316,7 @@ window.Quarto = {
 <div id="cell-9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(nheads <span class="op">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>np.int64(7)</code></pre>
+<pre><code>np.int64(9)</code></pre>
 </div>
 </div>
 <p>If we do enough tests, we will see rare things, even when the null hypothesis is true!</p>
@@ -343,14 +343,14 @@ window.Quarto = {
 <div id="cell-14" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X[:, <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>array([ 0.22428908, -1.55458267,  0.50336268, -1.67261814, -0.95434811,
-        0.8365154 ,  0.37206209,  0.95054587,  2.14591799,  0.98282547,
-        1.36119716,  0.97496354,  0.79197942,  1.74437622,  1.13539532,
-        0.30855623,  2.17921421,  0.93073945, -2.0997452 ,  0.14423038,
-        1.8399095 ,  1.13399339,  1.40218847, -1.65015151,  0.20821278,
-       -0.09165677, -0.21993701, -2.49475998,  0.76757264, -1.21719431,
-        0.764008  ,  2.53542814,  0.10500221, -0.14523281,  0.25234599,
-       -1.48534993,  0.13704521,  0.24523094, -1.94252285,  0.54702528])</code></pre>
+<pre><code>array([ 1.1590115 ,  0.29437799, -1.20388884, -1.39994129,  0.80287114,
+       -0.66532837,  0.94760322, -1.02684096, -0.53667259,  1.26035408,
+        0.30475883, -0.68428187, -0.7424497 , -1.19441991, -0.6307807 ,
+        1.08867092,  0.65729084,  0.02539257,  1.05287459, -1.93841006,
+        2.17832052, -2.4701497 ,  2.02294352,  0.06927303,  0.54318123,
+        1.9602065 , -0.35964106,  1.04538793, -1.52884496,  0.34965436,
+       -1.33769048,  0.6165512 ,  0.67023305, -1.11043292,  0.9638287 ,
+       -0.46430343, -0.41250436, -0.30909244, -0.02039219, -0.3204189 ])</code></pre>
 </div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="9">
@@ -395,7 +395,7 @@ window.Quarto = {
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>nmp <span class="op">=</span> np.where(pvals <span class="op">&lt;</span> alpha)[<span class="dv">0</span>]</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No multiple testing correction: reject "</span>, nmp.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>No multiple testing correction: reject  47</code></pre>
+<pre><code>No multiple testing correction: reject  45</code></pre>
 </div>
 </div>
 <div id="cell-19" class="cell" data-execution_count="13">
@@ -487,9 +487,9 @@ window.Quarto = {
 </div>
 </div>
 <div id="cell-25" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of hypotheses we should reject: '</span>, <span class="bu">int</span>(m<span class="op">/</span><span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of hypotheses we should reject: '</span>, <span class="bu">int</span>(m <span class="op">*</span> <span class="dv">5</span><span class="op">/</span><span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of hypotheses we should reject:  100</code></pre>
+<pre><code>Number of hypotheses we should reject:  50</code></pre>
 </div>
 </div>
 <div id="cell-26" class="cell" data-execution_count="19">
@@ -503,7 +503,7 @@ window.Quarto = {
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>nmp <span class="op">=</span> np.where(pvals <span class="op">&lt;</span> alpha)[<span class="dv">0</span>]</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"No multiple testing correction: reject "</span>, nmp.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>No multiple testing correction: reject  93</code></pre>
+<pre><code>No multiple testing correction: reject  94</code></pre>
 </div>
 </div>
 <div id="cell-28" class="cell" data-execution_count="21">
@@ -543,7 +543,7 @@ window.Quarto = {
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Benjamini-Hochberg: reject "</span>, <span class="bu">len</span>(bh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Benjamini-Hochberg: reject  54</code></pre>
+<pre><code>Benjamini-Hochberg: reject  55</code></pre>
 </div>
 </div>
 <div id="cell-31" class="cell" data-execution_count="24">
