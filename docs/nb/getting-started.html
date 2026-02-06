@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -163,7 +197,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#anaconda-installation" id="toc-anaconda-installation" class="nav-link active" data-scroll-target="#anaconda-installation">Anaconda Installation</a></li>
+  <li><a href="#anaconda-installation" id="toc-anaconda-installation" class="nav-link active" data-scroll-target="#anaconda-installation">Anaconda Installation</a>
+  <ul class="collapse">
+  <li><a href="#windows-users" id="toc-windows-users" class="nav-link" data-scroll-target="#windows-users">Windows Users</a></li>
+  </ul></li>
   <li><a href="#vscode" id="toc-vscode" class="nav-link" data-scroll-target="#vscode">VSCode</a></li>
   <li><a href="#managing-packages" id="toc-managing-packages" class="nav-link" data-scroll-target="#managing-packages">Managing packages</a></li>
   <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a>
@@ -217,10 +254,21 @@ Note
 </div>
 </div>
 <p>Anaconda requires a few GBs of storage - a more lightweight version is Miniconda, which you can download <a href="http://conda.pydata.org/miniconda.html">here</a>.</p>
+<section id="windows-users" class="level3">
+<h3 class="anchored" data-anchor-id="windows-users">Windows Users</h3>
+<p>I recommend installing Anaconda, not Miniconda. Anaconda comes with Anaconda Navigator, which is helpful for Windows.</p>
+</section>
 </section>
 <section id="vscode" class="level2">
 <h2 class="anchored" data-anchor-id="vscode">VSCode</h2>
 <p>There are a number of Python IDEs (integrated development environments). In class, we will be using VSCode (download <a href="https://code.visualstudio.com">here</a>).</p>
+<p>Once you have downloaded VSCode:</p>
+<ul>
+<li>Open VSCode</li>
+<li>Click on <code>Extensions</code> from the side bar (bottom left)</li>
+<li>Search for <code>Python</code> and install:</li>
+</ul>
+<p><img src="fig/vscode-extension.gif" class="img-fluid"></p>
 </section>
 <section id="managing-packages" class="level2">
 <h2 class="anchored" data-anchor-id="managing-packages">Managing packages</h2>
@@ -249,23 +297,87 @@ Note
 <section id="creating-an-environment-for-stat-486" class="level3">
 <h3 class="anchored" data-anchor-id="creating-an-environment-for-stat-486">Creating an environment for STAT-486</h3>
 <p>We recommend creating a virtual environment for your STAT-486 coding projects. This way, you can have an environment with all the necessary packages and you can easily keep track of what versions of the packages you used.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">macOS/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
 <li>Open Terminal (macOS) or a shell. You can also use Terminal in VSCode.</li>
-<li>Create an environment called <code>stat486</code> using Conda with the command: <code>conda create --name stat486</code></li>
-<li>To install packages in your environment, first activate your environment: <code>conda activate stat486</code></li>
-<li>Then, install the following packages using the command: <code>conda  install numpy pandas scikit-learn matplotlib seaborn jupyter ipykernel</code></li>
-<li>Install PyTorch by running the appropriate command from <a href="https://pytorch.org">here</a> (for macOS, the command is: <code>pip3 install torch torchvision</code>)</li>
-<li>To exit your environment: <code>conda deactivate</code></li>
+<li>Create an environment called <code>stat486</code> by copying and pasting the command:</li>
 </ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>To install packages in your environment, first activate your environment:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="1">
+<li>Then, install the following packages using the command:</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span>  install numpy pandas scikit-learn matplotlib seaborn jupyter ipykernel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="5" type="1">
+<li><p>Install PyTorch by running the appropriate command from <a href="https://pytorch.org">here</a></p></li>
+<li><p>To exit your environment, run:</p></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>Open Anaconda Prompt:</li>
+</ol>
+<p><img src="fig/getting-started-windows.jpg" class="img-fluid"></p>
+<ol start="2" type="1">
+<li>Create an environment called <code>stat486</code> using Conda with the command:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>To install packages in your environment, first activate your environment:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="4" type="1">
+<li>Then, install the following packages using the command:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span>  install numpy pandas scikit-learn matplotlib seaborn jupyter ipykernel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="5" type="1">
+<li><p>Install PyTorch by running the appropriate command from <a href="https://pytorch.org">here</a>.</p></li>
+<li><p>To exit your environment:</p></li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 <p>Here is a helpful <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">cheatsheet</a> for <code>conda</code> environment commands.</p>
 <p>For more details about the shell / bash, here is a helpful <a href="https://missing.csail.mit.edu/2020/course-shell/">resource</a>.</p>
 </section>
 <section id="jupyter-notebooks" class="level3">
 <h3 class="anchored" data-anchor-id="jupyter-notebooks">Jupyter Notebooks</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">macOS/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
 <li>Download <code>lec1.ipynb</code> <a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec1.ipynb">here</a> and open it in VSCode.</li>
 <li>To use your <code>stat486</code> environment, on the top right hand corner, click “Select Kernel” &gt; “Python Environments” &gt; stat486. If it prompts you to install <code>ipykernel</code>, follow the prompts to install it.</li>
 </ol>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<ol type="1">
+<li>Download <code>lec1.ipynb</code> <a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec1.ipynb">here</a>.</li>
+<li>Open Anaconda Navigator.</li>
+<li>At top of Anaconda Navigator, click on the arrow next to <code>base (root)</code> and select your <code>stat486</code> environment.</li>
+</ol>
+<p><img src="fig/nav-env.jpg" class="img-fluid"></p>
+<ol start="3" type="1">
+<li>Then, within Anaconda Navigator, launch VSCode:</li>
+</ol>
+<p><img src="fig/nav-tabs.png.avif" class="img-fluid"></p>
+<p>Note: When you launch VS Code from Anaconda Navigator, it automatically detects your selected Anaconda environment (<code>stat486</code>). This ensures all the packages available in <code>stat486</code> are accessible when you run your code within VS Code.</p>
+<ol start="4" type="1">
+<li><p>In VSCode, open <code>lec1.ipynb</code></p></li>
+<li><p>To use your <code>stat486</code> environment for the <code>lec1.ipynb</code> notebook, on the top right hand corner, click “Select Kernel” &gt; “Python Environments” &gt; stat486. If it prompts you to install <code>ipykernel</code>, follow the prompts to install it.</p></li>
+</ol>
+</div>
+</div>
+</div>
 <p>Jupyter notebooks (<code>.ipynb</code> files) are useful to combine code cells with text (as <a href="https://www.markdownguide.org/basic-syntax/">markdown</a> cells).</p>
 <p>VSCode also has a Python interactive window <a href="https://code.visualstudio.com/docs/python/jupyter-support-py">(details here)</a>.</p>
 </section>

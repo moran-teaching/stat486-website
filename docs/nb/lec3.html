@@ -530,10 +530,10 @@ long: (19.434, 40.198)</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="16">
+<div id="cell-19" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beta_sds <span class="op">=</span> np.std(boot_bhats, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="18">
+<div id="cell-20" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confidence interval</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lower_quantiles <span class="op">=</span> beta <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>upper_quantiles <span class="op">=</span> beta <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
