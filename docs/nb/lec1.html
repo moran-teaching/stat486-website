@@ -284,7 +284,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="299">
+<div id="cell-1" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -293,7 +293,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <section id="example-1.2-simple-binomial-test" class="level3">
 <h3 class="anchored" data-anchor-id="example-1.2-simple-binomial-test">Example 1.2: simple binomial test</h3>
-<div id="cell-4" class="cell" data-execution_count="300">
+<div id="cell-4" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>num_simulation <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>num_tosses <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>obs_num_heads <span class="op">=</span> <span class="dv">1</span></span>
@@ -311,11 +311,11 @@ window.Quarto = {
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Simulated p-value: </span><span class="sc">{</span>sim_pval<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Simulated p-value: 0.106</code></pre>
+<pre><code>Simulated p-value: 0.114</code></pre>
 </div>
 </div>
 <p>Plotting the distribution of the test statistic under the null</p>
-<div id="cell-6" class="cell" data-execution_count="327">
+<div id="cell-6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.arange(all_results.<span class="bu">min</span>(), all_results.<span class="bu">max</span>() <span class="op">+</span> <span class="dv">2</span>) <span class="op">-</span> <span class="fl">0.5</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.hist(all_results, rwidth<span class="op">=</span><span class="fl">.7</span>, bins<span class="op">=</span>bins)<span class="op">;</span></span>
@@ -347,7 +347,7 @@ window.Quarto = {
 <li>Compare <span class="math inline">T^{obs}</span> to the permutation distribution to obtain a <span class="math inline">p</span>-value:</li>
 </ul>
 <p><span class="math display">p\text{-val} = \frac{1}{S}\sum_{s=1}^S \mathbb{I}(T^{(s)} \geq T^{obs})</span></p>
-<div id="cell-8" class="cell" data-execution_count="302">
+<div id="cell-8" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_sim <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>my_viewsA <span class="op">=</span> <span class="dv">98</span></span>
@@ -379,7 +379,7 @@ window.Quarto = {
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="bu">abs</span>(obs_T), color<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Simulated p-value: 0.137</code></pre>
+<pre><code>Simulated p-value: 0.135</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -397,7 +397,7 @@ window.Quarto = {
 <p><span class="math display">H_0: X \text{ independent of } Y \quad \text{vs.}\quad H_1: X \text{ not independent of } Y</span></p>
 <p>Under the null, shuffling which values are paired does not change the distribution (because <span class="math inline">X</span> and <span class="math inline">Y</span> are independent).</p>
 <p>That is, under the null, <span class="math inline">(X_4, Y_1), (X_{32}, Y_2), ... (X_5, Y_n)</span> has the same distribution as the original data.</p>
-<div id="cell-10" class="cell" data-execution_count="303">
+<div id="cell-10" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>K1 <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>K2 <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -409,7 +409,7 @@ window.Quarto = {
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>column_sums <span class="op">=</span> np.<span class="bu">sum</span>(con_table, axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>row_sums <span class="op">=</span> np.<span class="bu">sum</span>(con_table, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="304">
+<div id="cell-11" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## compute chi-squared test statistic</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> np.zeros((K2, K1))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(K2):</span>
@@ -420,7 +420,7 @@ window.Quarto = {
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(np.<span class="bu">sum</span>(con_table))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="305">
+<div id="cell-12" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">## convert contingency table to data pairs</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_pairs <span class="op">=</span> []</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(K2):</span>
@@ -429,7 +429,7 @@ window.Quarto = {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            data_pairs.append([i, j])</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>data_pairs <span class="op">=</span> np.array(data_pairs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="306">
+<div id="cell-13" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n_sim <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>all_null_Ts <span class="op">=</span> np.zeros(n_sim)</span>
@@ -455,9 +455,9 @@ window.Quarto = {
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.hist(all_null_Ts, bins<span class="op">=</span><span class="dv">12</span>)<span class="op">;</span></span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>plt.axvline(obs_T, color<span class="op">=</span><span class="st">'red'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[ 332. 1205.  463.]
- [  38.  115.   47.]]
-Simulated p-value using test statistic 1 = 0.011</code></pre>
+<pre><code>[[ 336. 1195.  469.]
+ [  34.  125.   41.]]
+Simulated p-value using test statistic 1 = 0.005</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -467,7 +467,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="307">
+<div id="cell-14" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Use traditional pearson chi-squared test</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -480,7 +480,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 </section>
 <section id="example-1.5-independence-test-for-continuous-data" class="level3">
 <h3 class="anchored" data-anchor-id="example-1.5-independence-test-for-continuous-data">Example 1.5: independence test for continuous data</h3>
-<div id="cell-16" class="cell" data-execution_count="308">
+<div id="cell-16" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the X matrix</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([[<span class="fl">2.5</span>, <span class="fl">2.7</span>], [<span class="dv">4</span>, <span class="fl">4.0</span>], [<span class="dv">5</span>, <span class="fl">3.2</span>], [<span class="dv">1</span>, <span class="fl">2.7</span>], [<span class="dv">3</span>, <span class="fl">3.2</span>], [<span class="dv">2</span>, <span class="fl">2.4</span>], [<span class="fl">1.5</span>, <span class="fl">2.1</span>]])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -490,7 +490,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"X2"</span>)</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>np.corrcoef(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>])[<span class="dv">0</span>, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="308">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>np.float64(0.7350457786848433)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -501,7 +501,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="309">
+<div id="cell-17" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the correlation of the original data</span></span>
@@ -525,7 +525,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>plt.axvline(obs_T, color<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Simulated p-value: 0.046</code></pre>
+<pre><code>Simulated p-value: 0.061</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -538,7 +538,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 </section>
 <section id="example-1.6-independence-test-using-spearmans-rho" class="level3">
 <h3 class="anchored" data-anchor-id="example-1.6-independence-test-using-spearmans-rho">Example 1.6: independence test using Spearman’s rho</h3>
-<div id="cell-19" class="cell" data-execution_count="328">
+<div id="cell-19" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">20</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">20</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">50</span></span>
@@ -557,7 +557,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="311">
+<div id="cell-20" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation of original data</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>obs_corr <span class="op">=</span> np.corrcoef(x, y)[<span class="dv">0</span>,<span class="dv">1</span>]</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># spearman rho</span></span>
@@ -597,7 +597,7 @@ Simulated p-value using test statistic 1 = 0.011</code></pre>
 <span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simulated correlation p-value: 1.0
-Simulated spearman's p-value: 0.0</code></pre>
+Simulated spearman's p-value: 0.001</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -638,7 +638,7 @@ Simulated spearman's p-value: 0.0</code></pre>
 <section id="example-1.7-confidence-interval-for-the-median" class="level3">
 <h3 class="anchored" data-anchor-id="example-1.7-confidence-interval-for-the-median">Example 1.7: confidence interval for the median</h3>
 <p>Here is a sample <span class="math inline">X_1,\dots, X_n</span> from the exponential distribution.</p>
-<div id="cell-24" class="cell" data-execution_count="329">
+<div id="cell-24" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># draw sample</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">30</span></span>
@@ -649,7 +649,7 @@ Simulated spearman's p-value: 0.0</code></pre>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># get population distribution for plotting</span></span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>pdf_vals <span class="op">=</span> scipy.stats.expon.pdf(x_vals)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>pdf_vals <span class="op">=</span> stats.expon.pdf(x_vals)</span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, pdf_vals, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'Population'</span>)<span class="op">;</span></span>
@@ -664,24 +664,27 @@ Simulated spearman's p-value: 0.0</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell">
+<div id="cell-25" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated: </span><span class="sc">{</span>med_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated: 0.517</code></pre>
+</div>
 </div>
 <p>We use the bootstrap to obtain bootstrap samples, and calculate the median of each of the samples.</p>
-<div id="cell-27" class="cell" data-execution_count="313">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>boot_med_hats <span class="op">=</span> np.zeros(n_boot)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    xboot <span class="op">=</span> np.random.choice(x, n, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    boot_med_hats[cur_boot] <span class="op">=</span> np.median(xboot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>boot_med_hats <span class="op">=</span> np.zeros(n_boot)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    xboot <span class="op">=</span> np.random.choice(x, n, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    boot_med_hats[cur_boot] <span class="op">=</span> np.median(xboot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="325">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bins_medians <span class="op">=</span> np.linspace(<span class="bu">min</span>(boot_med_hats), <span class="bu">max</span>(boot_med_hats), <span class="dv">15</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_med_hats, bins<span class="op">=</span>bins_medians,density<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'grey'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)<span class="op">;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bootstrap Sample Medians'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-28" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>bins_medians <span class="op">=</span> np.linspace(<span class="bu">min</span>(boot_med_hats), <span class="bu">max</span>(boot_med_hats), <span class="dv">15</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_med_hats, bins<span class="op">=</span>bins_medians,density<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'grey'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bootstrap Sample Medians'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -696,18 +699,18 @@ Simulated spearman's p-value: 0.0</code></pre>
 </ol>
 <p><span class="math display"> [\widehat{m} - z_{1-\alpha/2} sd(\widehat{m}), \widehat{m} + z_{1-\alpha/2} sd(\widehat{m})]</span></p>
 <p>where <span class="math inline">z_{1-\alpha/2}</span> is the <span class="math inline">1-\alpha/2</span> quantile of the Gaussian distribution.</p>
-<div id="cell-30" class="cell" data-execution_count="315">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>z_alpha <span class="op">=</span> stats.norm.ppf(<span class="fl">0.975</span>)  <span class="co"># z_{1-alpha/2} for alpha=0.05</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lower_quantile <span class="op">=</span> med_hat <span class="op">-</span> z_alpha <span class="op">*</span> np.std(boot_med_hats)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>upper_quantile <span class="op">=</span> med_hat <span class="op">+</span> z_alpha <span class="op">*</span> np.std(boot_med_hats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-30" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>z_alpha <span class="op">=</span> stats.norm.ppf(<span class="fl">0.975</span>)  <span class="co"># z_{1-alpha/2} for alpha=0.05</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>lower_quantile <span class="op">=</span> med_hat <span class="op">-</span> z_alpha <span class="op">*</span> np.std(boot_med_hats)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>upper_quantile <span class="op">=</span> med_hat <span class="op">+</span> z_alpha <span class="op">*</span> np.std(boot_med_hats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="316">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bootstrap normal confidence interval: (</span><span class="sc">{</span>lower_quantile<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_quantile<span class="sc">:.3f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-31" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bootstrap normal confidence interval: (</span><span class="sc">{</span>lower_quantile<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>upper_quantile<span class="sc">:.3f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bootstrap normal confidence interval: (0.198, 0.837)</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="330">
+<div id="cell-32" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -721,15 +724,15 @@ Simulated spearman's p-value: 0.0</code></pre>
 </ol>
 <p><span class="math display"> [\widehat{Q}_{\alpha/2}, \widehat{Q}_{1-\alpha/2}]</span></p>
 <p>where <span class="math inline">\widehat{Q}_{\alpha/2}</span> is the <span class="math inline">\alpha/2</span> sample quantile of the bootstrap medians.</p>
-<div id="cell-34" class="cell" data-execution_count="318">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>q025 <span class="op">=</span> np.quantile(boot_med_hats, <span class="fl">0.025</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>q975 <span class="op">=</span> np.quantile(boot_med_hats, <span class="fl">0.975</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bootstrap quantile confidence interval: (</span><span class="sc">{</span>q025<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>q975<span class="sc">:.3f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-34" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>q025 <span class="op">=</span> np.quantile(boot_med_hats, <span class="fl">0.025</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>q975 <span class="op">=</span> np.quantile(boot_med_hats, <span class="fl">0.975</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bootstrap quantile confidence interval: (</span><span class="sc">{</span>q025<span class="sc">:.3f}</span><span class="ss">, </span><span class="sc">{</span>q975<span class="sc">:.3f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bootstrap quantile confidence interval: (0.291, 0.905)</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="319">
+<div id="cell-35" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -747,53 +750,53 @@ Simulated spearman's p-value: 0.0</code></pre>
 <li><p>We draw bootstrap samples and calculate a confidence interval for the mean using the normal approximation</p></li>
 <li><p>We then record how many intervals contain the population mean</p></li>
 </ul>
-<div id="cell-38" class="cell" data-execution_count="335">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>n_sim <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>successes <span class="op">=</span> np.zeros(n_sim)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>z_alpha <span class="op">=</span> stats.norm.ppf(<span class="fl">0.975</span>)  <span class="co"># z_{1-alpha/2} for alpha=0.05</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>lower_bounds <span class="op">=</span> []</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>upper_bounds <span class="op">=</span> []</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_sim <span class="kw">in</span> <span class="bu">range</span>(n_sim):</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.random.poisson(lam<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>n)  <span class="co"># Poisson distribution with lambda=1</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    muhat <span class="op">=</span> np.mean(x)</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    n_boot <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    boot_muhats <span class="op">=</span> np.zeros(n_boot)</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>        xboot <span class="op">=</span> np.random.choice(x, n, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>        boot_muhats[cur_boot] <span class="op">=</span> np.mean(xboot)</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    boot_std <span class="op">=</span> np.std(boot_muhats) </span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    boot_ci <span class="op">=</span> [muhat <span class="op">-</span> z_alpha <span class="op">*</span> boot_std, muhat <span class="op">+</span> z_alpha <span class="op">*</span> boot_std]</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    lower_bounds.append(muhat <span class="op">-</span> z_alpha <span class="op">*</span> boot_std)</span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    upper_bounds.append(muhat <span class="op">+</span> z_alpha <span class="op">*</span> boot_std)</span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> boot_ci[<span class="dv">0</span>] <span class="op">&lt;=</span> mu <span class="op">&lt;=</span> boot_ci[<span class="dv">1</span>]:</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>        successes[cur_sim] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>percent_success <span class="op">=</span> np.<span class="bu">sum</span>(successes) <span class="op">/</span> n_sim</span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Percent of experiments where the confidence interval contains the true mean: </span><span class="sc">{</span>percent_success<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the confidence intervals</span></span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_sim):</span>
-<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> <span class="st">'blue'</span> <span class="cf">if</span> successes[i] <span class="cf">else</span> <span class="st">'red'</span></span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>    ax.hlines(i, lower_bounds[i], upper_bounds[i], colors<span class="op">=</span>color, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>ax.axvline(mu, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'True mean'</span>)</span>
-<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Mean value'</span>)</span>
-<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Simulation index'</span>)</span>
-<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Bootstrap Confidence Intervals'</span>)</span>
-<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-38" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n_sim <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>successes <span class="op">=</span> np.zeros(n_sim)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>z_alpha <span class="op">=</span> stats.norm.ppf(<span class="fl">0.975</span>)  <span class="co"># z_{1-alpha/2} for alpha=0.05</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>lower_bounds <span class="op">=</span> []</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>upper_bounds <span class="op">=</span> []</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_sim <span class="kw">in</span> <span class="bu">range</span>(n_sim):</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.random.poisson(lam<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>n)  <span class="co"># Poisson distribution with lambda=1</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    muhat <span class="op">=</span> np.mean(x)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    n_boot <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    boot_muhats <span class="op">=</span> np.zeros(n_boot)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>        xboot <span class="op">=</span> np.random.choice(x, n, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>        boot_muhats[cur_boot] <span class="op">=</span> np.mean(xboot)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    boot_std <span class="op">=</span> np.std(boot_muhats) </span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    boot_ci <span class="op">=</span> [muhat <span class="op">-</span> z_alpha <span class="op">*</span> boot_std, muhat <span class="op">+</span> z_alpha <span class="op">*</span> boot_std]</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    lower_bounds.append(muhat <span class="op">-</span> z_alpha <span class="op">*</span> boot_std)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    upper_bounds.append(muhat <span class="op">+</span> z_alpha <span class="op">*</span> boot_std)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> boot_ci[<span class="dv">0</span>] <span class="op">&lt;=</span> mu <span class="op">&lt;=</span> boot_ci[<span class="dv">1</span>]:</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>        successes[cur_sim] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>percent_success <span class="op">=</span> np.<span class="bu">sum</span>(successes) <span class="op">/</span> n_sim</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Percent of experiments where the confidence interval contains the true mean: </span><span class="sc">{</span>percent_success<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the confidence intervals</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_sim):</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> <span class="st">'blue'</span> <span class="cf">if</span> successes[i] <span class="cf">else</span> <span class="st">'red'</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>    ax.hlines(i, lower_bounds[i], upper_bounds[i], colors<span class="op">=</span>color, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>ax.axvline(mu, color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'True mean'</span>)</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Mean value'</span>)</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Simulation index'</span>)</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Bootstrap Confidence Intervals'</span>)</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Percent of experiments where the confidence interval contains the true mean: 0.92</code></pre>
+<pre><code>Percent of experiments where the confidence interval contains the true mean: 0.946</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -806,35 +809,35 @@ Simulated spearman's p-value: 0.0</code></pre>
 </section>
 <section id="example-1.9-and-1.10-bootstrap-tests-for-the-mean" class="level3">
 <h3 class="anchored" data-anchor-id="example-1.9-and-1.10-bootstrap-tests-for-the-mean">Example 1.9 and 1.10: bootstrap tests for the mean</h3>
-<div id="cell-40" class="cell" data-execution_count="323">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([<span class="fl">0.2</span>, <span class="op">-</span><span class="fl">1.9</span>, <span class="fl">1.4</span>, <span class="op">-</span><span class="fl">2.7</span>, <span class="op">-</span><span class="fl">1.7</span>, <span class="op">-</span><span class="fl">1.4</span>, <span class="fl">0.3</span>, <span class="fl">1.2</span>, <span class="op">-</span><span class="fl">1.1</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="op">-</span><span class="fl">2.1</span>])</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(X)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"mean of X: </span><span class="sc">{</span>np<span class="sc">.</span>mean(X)<span class="sc">:.3f}</span><span class="ss">  with n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>obs_T <span class="op">=</span> <span class="bu">abs</span>(np.mean(X))</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>Xc <span class="op">=</span> X <span class="op">-</span> np.mean(X)</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>boot_Ts <span class="op">=</span> np.zeros(n_boot)</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="op">=</span> np.random.choice(Xc, n, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  boot_Ts[cur_boot] <span class="op">=</span> <span class="bu">abs</span>(np.mean(Xboot))</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>boot_pval <span class="op">=</span> <span class="bu">sum</span>(boot_Ts <span class="op">&gt;=</span> obs_T)<span class="op">/</span>n_boot</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bootstrap p-value: </span><span class="sc">{</span>boot_pval<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_Ts, bins<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.<span class="bu">abs</span>(obs_T), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>)</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-40" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([<span class="fl">0.2</span>, <span class="op">-</span><span class="fl">1.9</span>, <span class="fl">1.4</span>, <span class="op">-</span><span class="fl">2.7</span>, <span class="op">-</span><span class="fl">1.7</span>, <span class="op">-</span><span class="fl">1.4</span>, <span class="fl">0.3</span>, <span class="fl">1.2</span>, <span class="op">-</span><span class="fl">1.1</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="op">-</span><span class="fl">2.1</span>])</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(X)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"mean of X: </span><span class="sc">{</span>np<span class="sc">.</span>mean(X)<span class="sc">:.3f}</span><span class="ss">  with n=</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>obs_T <span class="op">=</span> <span class="bu">abs</span>(np.mean(X))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>Xc <span class="op">=</span> X <span class="op">-</span> np.mean(X)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>boot_Ts <span class="op">=</span> np.zeros(n_boot)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="op">=</span> np.random.choice(Xc, n, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  boot_Ts[cur_boot] <span class="op">=</span> <span class="bu">abs</span>(np.mean(Xboot))</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>boot_pval <span class="op">=</span> <span class="bu">sum</span>(boot_Ts <span class="op">&gt;=</span> obs_T)<span class="op">/</span>n_boot</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bootstrap p-value: </span><span class="sc">{</span>boot_pval<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_Ts, bins<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.<span class="bu">abs</span>(obs_T), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'dashed'</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mean of X: -0.727  with n=11
-bootstrap p-value: 0.078</code></pre>
+bootstrap p-value: 0.066</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -844,41 +847,41 @@ bootstrap p-value: 0.078</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="336">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.array([<span class="dv">11</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">2</span>])</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(X)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="bu">len</span>(Y)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>Xc <span class="op">=</span> X <span class="op">-</span> np.mean(X)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>Yc <span class="op">=</span> Y <span class="op">-</span> np.mean(Y)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"mean of X: </span><span class="sc">{</span>np<span class="sc">.</span>mean(X)<span class="sc">:.3f}</span><span class="ss">,  mean of Y: </span><span class="sc">{</span>np<span class="sc">.</span>mean(Y)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>obs_T <span class="op">=</span> np.mean(X) <span class="op">-</span> np.mean(Y)</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>boot_Ts <span class="op">=</span> np.zeros(n_boot)</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="op">=</span> np.random.choice(Xc, n, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  Yboot <span class="op">=</span> np.random.choice(Yc, m, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  boot_Ts[cur_boot] <span class="op">=</span> np.mean(Xboot) <span class="op">-</span> np.mean(Yboot)</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>boot_pval <span class="op">=</span> <span class="bu">sum</span>(np.<span class="bu">abs</span>(boot_Ts) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(obs_T))<span class="op">/</span>n_boot</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bootstrap p-value: </span><span class="sc">{</span>boot_pval<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_Ts, bins<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.<span class="bu">abs</span>(obs_T), linestyle<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="op">-</span>np.<span class="bu">abs</span>(obs_T), linestyle<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-41" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.array([<span class="dv">11</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">2</span>])</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(X)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="bu">len</span>(Y)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>n_boot <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>Xc <span class="op">=</span> X <span class="op">-</span> np.mean(X)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>Yc <span class="op">=</span> Y <span class="op">-</span> np.mean(Y)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"mean of X: </span><span class="sc">{</span>np<span class="sc">.</span>mean(X)<span class="sc">:.3f}</span><span class="ss">,  mean of Y: </span><span class="sc">{</span>np<span class="sc">.</span>mean(Y)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>obs_T <span class="op">=</span> np.mean(X) <span class="op">-</span> np.mean(Y)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>boot_Ts <span class="op">=</span> np.zeros(n_boot)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cur_boot <span class="kw">in</span> <span class="bu">range</span>(n_boot):</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="op">=</span> np.random.choice(Xc, n, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  Yboot <span class="op">=</span> np.random.choice(Yc, m, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  boot_Ts[cur_boot] <span class="op">=</span> np.mean(Xboot) <span class="op">-</span> np.mean(Yboot)</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>boot_pval <span class="op">=</span> <span class="bu">sum</span>(np.<span class="bu">abs</span>(boot_Ts) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(obs_T))<span class="op">/</span>n_boot</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"bootstrap p-value: </span><span class="sc">{</span>boot_pval<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>plt.hist(boot_Ts, bins<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.<span class="bu">abs</span>(obs_T), linestyle<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="op">-</span>np.<span class="bu">abs</span>(obs_T), linestyle<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mean of X: 4.273,  mean of Y: 2.429
-bootstrap p-value: 0.324</code></pre>
+bootstrap p-value: 0.308</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>

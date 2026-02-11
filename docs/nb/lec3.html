@@ -273,7 +273,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="2">
+<div id="cell-1" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -292,13 +292,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>We consider the <a href="https://www.kaggle.com/datasets/harlfoxem/housesalesprediction">Kings County housing dataset</a>. It includes homes sold between May 2014 and May 2015.</p>
 <p>Specifically, we focuse on the Rainier Valley zipcode.</p>
-<div id="cell-3" class="cell" data-execution_count="3">
+<div id="cell-3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>house <span class="op">=</span> pd.read_csv(<span class="st">"data/rainier_valley_house.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>house.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>Index(['Unnamed: 0', 'id', 'date', 'price', 'bedrooms', 'bathrooms',
        'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view', 'condition',
        'grade', 'sqft_above', 'sqft_basement', 'yr_built', 'yr_renovated',
@@ -306,7 +306,7 @@ window.Quarto = {
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will consider this subset of features</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"floors"</span>, <span class="st">"grade"</span>, <span class="st">"condition"</span>, <span class="st">"view"</span>, <span class="st">"sqft_living"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sqft_lot"</span>, <span class="st">"sqft_basement"</span>, <span class="st">"yr_built"</span>, <span class="st">"yr_renovated"</span>,</span>
@@ -328,7 +328,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="formula">Formula</h3>
 <p>We compute the regression coefficients using the formula:</p>
 <p><span class="math display">\widehat{\beta} = (X^\top X)^{-1}X^\top y</span></p>
-<div id="cell-8" class="cell" data-execution_count="6">
+<div id="cell-8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## linear regression</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X_stan1 <span class="op">=</span> np.hstack([np.ones((X_stan.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_stan])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X_stan1, Y, test_size<span class="op">=</span><span class="dv">100</span>, train_size<span class="op">=</span><span class="dv">400</span>, random_state<span class="op">=</span><span class="dv">2</span>)</span>
@@ -374,7 +374,7 @@ Test R-squared of linear regression: 0.688</code></pre>
 <section id="using-scikit-learn" class="level3">
 <h3 class="anchored" data-anchor-id="using-scikit-learn">Using Scikit-Learn</h3>
 <p>We can also use scikit-learn (sklearn) to run linear regression for us:</p>
-<div id="cell-10" class="cell" data-execution_count="7">
+<div id="cell-10" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the intercept column - sklearn adds it by default</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> X_train[:, <span class="dv">1</span>:]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X_test[:, <span class="dv">1</span>:]</span>
@@ -395,13 +395,13 @@ Test R-squared of linear regression: 0.688</code></pre>
 Test R-squared of linear regression: 0.688</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-11" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>linreg.intercept_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>np.float64(397.6669185000979)</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="9">
+<div id="cell-12" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## print coefficients</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Coefficients:"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> X.columns</span>
@@ -433,7 +433,7 @@ long: 29.816</code></pre>
 <h3 class="anchored" data-anchor-id="inference">Inference</h3>
 <section id="t-tests-for-coefficients" class="level4">
 <h4 class="anchored" data-anchor-id="t-tests-for-coefficients">t-tests for coefficients</h4>
-<div id="cell-14" class="cell" data-execution_count="10">
+<div id="cell-14" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute confidence intervals for coefficients using stats</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>X_train1 <span class="op">=</span> np.hstack([np.ones((X_train.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_train])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -491,7 +491,7 @@ long: (19.434, 40.198)</code></pre>
 </section>
 <section id="using-the-bootstrap" class="level4">
 <h4 class="anchored" data-anchor-id="using-the-bootstrap">Using the bootstrap</h4>
-<div id="cell-16" class="cell" data-execution_count="11">
+<div id="cell-16" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Y_train <span class="op">=</span> Y_train.to_numpy()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n_train <span class="op">=</span> X_train.shape[<span class="dv">0</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -513,7 +513,7 @@ long: (19.434, 40.198)</code></pre>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    boot_bhats[b, <span class="dv">1</span>:] <span class="op">=</span> linreg.coef_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="fig/boot_linreg.gif" class="img-fluid"></p>
-<div id="cell-18" class="cell" data-execution_count="12">
+<div id="cell-18" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>bins_beta <span class="op">=</span> np.linspace(boot_bhats[:, <span class="dv">4</span>].<span class="bu">min</span>(), boot_bhats[:, <span class="dv">4</span>].<span class="bu">max</span>(), <span class="dv">20</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
@@ -530,10 +530,10 @@ long: (19.434, 40.198)</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13">
+<div id="cell-19" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beta_sds <span class="op">=</span> np.std(boot_bhats, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="14">
+<div id="cell-20" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confidence interval</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lower_quantiles <span class="op">=</span> beta <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>upper_quantiles <span class="op">=</span> beta <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
