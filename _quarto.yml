@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "STAT-486"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+  sidebar:
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - nb/getting-started.ipynb
+      - nb/lec1.ipynb
+      - nb/lec2a.ipynb
+      - nb/lec2b.ipynb
+      - nb/lec3.ipynb
+      - nb/lec4.ipynb
+      - nb/lec5.ipynb
+  repo-url: https://github.com/moran-teaching/stat486-website   
+  repo-branch: main                                             
+  repo-actions: [source] 
+        
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+

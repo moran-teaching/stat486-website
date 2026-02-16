@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Getting started – STAT-486</title>
+<title>Lecture 5 - GLMs and Variable Selection – STAT-486</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -103,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -137,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/getting-started.html">Getting started</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/lec5.html">Lecture 5 - GLMs and Variable Selection</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -159,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../nb/getting-started.html" class="sidebar-item-text sidebar-link active">
+  <a href="../nb/getting-started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started</span></a>
   </div>
 </li>
@@ -195,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../nb/lec5.html" class="sidebar-item-text sidebar-link">
+  <a href="../nb/lec5.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 5 - GLMs and Variable Selection</span></a>
   </div>
 </li>
@@ -209,28 +176,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#anaconda-installation" id="toc-anaconda-installation" class="nav-link active" data-scroll-target="#anaconda-installation">Anaconda Installation</a>
-  <ul class="collapse">
-  <li><a href="#windows-users" id="toc-windows-users" class="nav-link" data-scroll-target="#windows-users">Windows Users</a></li>
-  </ul></li>
-  <li><a href="#vscode" id="toc-vscode" class="nav-link" data-scroll-target="#vscode">VSCode</a></li>
-  <li><a href="#managing-packages" id="toc-managing-packages" class="nav-link" data-scroll-target="#managing-packages">Managing packages</a></li>
-  <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a>
-  <ul class="collapse">
-  <li><a href="#about" id="toc-about" class="nav-link" data-scroll-target="#about">About</a></li>
-  <li><a href="#creating-an-environment-for-stat-486" id="toc-creating-an-environment-for-stat-486" class="nav-link" data-scroll-target="#creating-an-environment-for-stat-486">Creating an environment for STAT-486</a></li>
-  <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks">Jupyter Notebooks</a></li>
-  </ul></li>
-  <li><a href="#learning-python" id="toc-learning-python" class="nav-link" data-scroll-target="#learning-python">Learning Python</a></li>
+  <li><a href="#bias-variance-illustration" id="toc-bias-variance-illustration" class="nav-link active" data-scroll-target="#bias-variance-illustration">Bias-Variance Illustration</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/getting-started.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Getting started</h1>
+<h1 class="title">Lecture 5 - GLMs and Variable Selection</h1>
 </div>
 
 
@@ -247,161 +202,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="anaconda-installation" class="level2">
-<h2 class="anchored" data-anchor-id="anaconda-installation">Anaconda Installation</h2>
-<p>We will use Python via the Anaconda distribution.</p>
-<p>Download Anaconda <a href="https://www.anaconda.com/download">here</a>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There are a variety of different Python distributions; for statistics and machine learning, we recommend Anaconda as it comes with many useful packages pre-installed.</p>
-<p>(It is also a good idea NOT to use your computer’s pre-installed Python - you don’t want to accidentally change any system settings!)</p>
-</div>
-</div>
-<p>Anaconda requires a few GBs of storage - a more lightweight version is Miniconda, which you can download <a href="http://conda.pydata.org/miniconda.html">here</a>.</p>
-<section id="windows-users" class="level3">
-<h3 class="anchored" data-anchor-id="windows-users">Windows Users</h3>
-<p>I recommend installing Anaconda, not Miniconda. Anaconda comes with Anaconda Navigator, which is helpful for Windows.</p>
-</section>
-</section>
-<section id="vscode" class="level2">
-<h2 class="anchored" data-anchor-id="vscode">VSCode</h2>
-<p>There are a number of Python IDEs (integrated development environments). In class, we will be using VSCode (download <a href="https://code.visualstudio.com">here</a>).</p>
-<p>Once you have downloaded VSCode:</p>
-<ul>
-<li>Open VSCode</li>
-<li>Click on <code>Extensions</code> from the side bar (bottom left)</li>
-<li>Search for <code>Python</code> and install:</li>
-</ul>
-<p><img src="fig/vscode-extension.gif" class="img-fluid"></p>
-</section>
-<section id="managing-packages" class="level2">
-<h2 class="anchored" data-anchor-id="managing-packages">Managing packages</h2>
-<p>There are many open source Python packages for statistics and machine learning.</p>
-<p>To download packages, two popular package managers are <strong>Conda</strong> and <strong>Pip</strong>. Both Conda and Pip come with the Anaconda distribution.</p>
-<p><strong>Conda</strong> is a general-purpose package management system, designed to build and manage software of any type from any language. This means conda can take advantage of many non-python packages (like BLAS, for linear algebra operations).</p>
-<p><strong>Pip</strong> is a package manager for python. You may see people using pip with environments using <a href="https://virtualenv.pypa.io/en/stable/">virtualenv</a> or <a href="https://docs.python.org/3/library/venv.html">venv</a>.</p>
-<p>We recommend:</p>
-<ul>
-<li>use a <a href="#environments">conda environment</a></li>
-<li>within this environment, use conda to install base packages such as <code>pandas</code> and <code>numpy</code></li>
-<li>if a package is not available via conda, then use pip</li>
-</ul>
-<p>See <a href="https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/">here</a> for some conda vs pip misconceptions, and why conda is helpful.</p>
-</section>
-<section id="environments" class="level2">
-<h2 class="anchored" data-anchor-id="environments">Environments</h2>
-<section id="about" class="level3">
-<h3 class="anchored" data-anchor-id="about">About</h3>
-<p>It is good coding practice to use virtual environments with Python. From <a href="https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/">this blog</a>:</p>
-<blockquote class="blockquote">
-<p>A Python virtual environment consists of two essential components: the Python interpreter that the virtual environment runs on and a folder containing third-party libraries installed in the virtual environment. These virtual environments are isolated from the other virtual environments, which means any changes on dependencies installed in a virtual environment don’t affect the dependencies of the other virtual environments or the system-wide libraries. Thus, we can create multiple virtual environments with different Python versions, plus different libraries or the same libraries in different versions.</p>
-</blockquote>
-<p><img src="https://www.dataquest.io/wp-content/uploads/2022/01/python-virtual-envs1.webp" class="img-fluid"></p>
-</section>
-<section id="creating-an-environment-for-stat-486" class="level3">
-<h3 class="anchored" data-anchor-id="creating-an-environment-for-stat-486">Creating an environment for STAT-486</h3>
-<p>We recommend creating a virtual environment for your STAT-486 coding projects. This way, you can have an environment with all the necessary packages and you can easily keep track of what versions of the packages you used.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">macOS/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<ol type="1">
-<li>Open Terminal (macOS) or a shell. You can also use Terminal in VSCode.</li>
-<li>Create an environment called <code>stat486</code> by copying and pasting the command:</li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li>To install packages in your environment, first activate your environment:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="4" type="1">
-<li>Then, install the following packages using the command:</li>
-</ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas scikit-learn matplotlib seaborn ipykernel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="5" type="1">
-<li><p>Install PyTorch by running the appropriate command from <a href="https://pytorch.org">here</a></p></li>
-<li><p>To exit your environment, run:</p></li>
-</ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ol type="1">
-<li>Open Anaconda Prompt:</li>
-</ol>
-<p><img src="fig/getting-started-windows.jpg" class="img-fluid"></p>
-<ol start="2" type="1">
-<li>Create an environment called <code>stat486</code> using Conda with the command:</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li>To install packages in your environment, first activate your environment:</li>
-</ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stat486</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="4" type="1">
-<li>Then, install the following packages using the command:</li>
-</ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas scikit-learn matplotlib seaborn ipykernel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="5" type="1">
-<li><p>Install PyTorch by running the appropriate command from <a href="https://pytorch.org">here</a>.</p></li>
-<li><p>To exit your environment:</p></li>
-</ol>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<p>Here is a helpful <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">cheatsheet</a> for <code>conda</code> environment commands.</p>
-<p>For more details about the shell / bash, here is a helpful <a href="https://missing.csail.mit.edu/2020/course-shell/">resource</a>.</p>
-</section>
-<section id="jupyter-notebooks" class="level3">
-<h3 class="anchored" data-anchor-id="jupyter-notebooks">Jupyter Notebooks</h3>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">macOS/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Windows</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<ol type="1">
-<li>Download <code>lec1.ipynb</code> <a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec1.ipynb">here</a> and open it in VSCode.</li>
-<li>To use your <code>stat486</code> environment, on the top right hand corner, click “Select Kernel” &gt; “Python Environments” &gt; stat486. If it prompts you to install <code>ipykernel</code>, follow the prompts to install it. If you can’t see <code>stat486</code>, try restarting VSCode.</li>
-</ol>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<ol type="1">
-<li>Download <code>lec1.ipynb</code> <a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec1.ipynb">here</a>.</li>
-<li>Open Anaconda Navigator.</li>
-<li>At top of Anaconda Navigator, click on the arrow next to <code>base (root)</code> and select your <code>stat486</code> environment.</li>
-</ol>
-<p><img src="fig/nav-env.jpg" class="img-fluid"></p>
-<ol start="3" type="1">
-<li>Then, within Anaconda Navigator, launch VSCode:</li>
-</ol>
-<p><img src="fig/nav-tabs.png.avif" class="img-fluid"></p>
-<p>Note: When you launch VS Code from Anaconda Navigator, it automatically detects your selected Anaconda environment (<code>stat486</code>). This ensures all the packages available in <code>stat486</code> are accessible when you run your code within VS Code.</p>
-<ol start="4" type="1">
-<li><p>In VSCode, open <code>lec1.ipynb</code></p></li>
-<li><p>To use your <code>stat486</code> environment for the <code>lec1.ipynb</code> notebook, on the top right hand corner, click “Select Kernel” &gt; “Python Environments” &gt; stat486. If it prompts you to install <code>ipykernel</code>, follow the prompts to install it. If you can’t see <code>stat486</code>, try restarting VSCode.</p></li>
-</ol>
-</div>
-</div>
-</div>
-<p>Jupyter notebooks (<code>.ipynb</code> files) are useful to combine code cells with text (as <a href="https://www.markdownguide.org/basic-syntax/">markdown</a> cells).</p>
-<p>VSCode also has a Python interactive window <a href="https://code.visualstudio.com/docs/python/jupyter-support-py">(details here)</a>.</p>
-</section>
-</section>
-<section id="learning-python" class="level2">
-<h2 class="anchored" data-anchor-id="learning-python">Learning Python</h2>
-<p>Here are some resources for learning Python:</p>
-<ul>
-<li><a href="https://moran-teaching.github.io/msds597-website/lec-1/lecture-1.html">Numpy</a></li>
-<li><a href="https://moran-teaching.github.io/msds597-website/lec-2/lecture-2.html">Pandas</a></li>
-<li><a href="https://moran-teaching.github.io/msds597-website/lec-10/lecture-10.html#interlude-object-oriented-programming">Object-oriented programming</a></li>
-</ul>
+<section id="bias-variance-illustration" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-illustration">Bias-Variance Illustration</h2>
+<p>Linear regression fit to nonlinear data</p>
+<p><img src="fig/bias-variance-simple.gif" class="img-fluid"></p>
+<p>Polynomial fit to nonlinear data (with regularization)</p>
+<p><img src="fig/bias-variance-regularized.gif" class="img-fluid"></p>
+<p>Polynomial fit to nonlinear data (no regularization)</p>
+<p><img src="fig/bias-variance-complex.gif" class="img-fluid"></p>
 
 
 </section>
@@ -829,4 +637,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/getting-started.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

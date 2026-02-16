@@ -1,0 +1,20 @@
+---
+title: "Rutgers STAT-486 - Statistical Learning"
+---
+
+## Spring 2026
+
+**Instructor:** Gemma Moran
+
+**Instructor website:** [link](https://www.gemma-moran.com)
+
+## Getting started
+
+See [here](nb/getting-started.ipynb) for details about how to get started with python, VSCode and PyTorch. 
+
+## Lectures
+
+The code from the lectures is in the left sidebar. 
+
+Lecture slides and information about homeworks, office hours etc. can be found on Canvas.
+
