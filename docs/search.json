@@ -296,7 +296,7 @@
     "href": "nb/lec5.html",
     "title": "Lecture 5 - GLMs and Variable Selection",
     "section": "",
-    "text": "Linear regression fit to nonlinear data\n\nPolynomial fit to nonlinear data (with regularization)\n\nPolynomial fit to nonlinear data (no regularization)",
+    "text": "Linear regression fit to nonlinear data\n\nPiecewise polynomial fit to nonlinear data (with regularization)\n\nPiecewise polynomial fit to nonlinear data (no regularization)",
     "crumbs": [
       "Home",
       "Lecture 5 - GLMs and Variable Selection"
@@ -307,7 +307,7 @@
     "href": "nb/lec5.html#bias-variance-illustration",
     "title": "Lecture 5 - GLMs and Variable Selection",
     "section": "",
-    "text": "Linear regression fit to nonlinear data\n\nPolynomial fit to nonlinear data (with regularization)\n\nPolynomial fit to nonlinear data (no regularization)",
+    "text": "Linear regression fit to nonlinear data\n\nPiecewise polynomial fit to nonlinear data (with regularization)\n\nPiecewise polynomial fit to nonlinear data (no regularization)",
     "crumbs": [
       "Home",
       "Lecture 5 - GLMs and Variable Selection"
