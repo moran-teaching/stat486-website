@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 5 - GLMs and Variable Selection – STAT-486</title>
+<title>Lecture 5a - Generalized Linear Models – STAT-486</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -66,6 +100,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -104,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/lec5.html">Lecture 5 - GLMs and Variable Selection</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/lec5.html">Lecture 5a - Generalized Linear Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -163,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../nb/lec5.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lecture 5 - GLMs and Variable Selection</span></a>
+ <span class="menu-text">Lecture 5a - Generalized Linear Models</span></a>
   </div>
 </li>
     </ul>
@@ -177,6 +214,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#bias-variance-illustration" id="toc-bias-variance-illustration" class="nav-link active" data-scroll-target="#bias-variance-illustration">Bias-Variance Illustration</a></li>
+  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression">Poisson Regression</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
@@ -185,7 +223,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 5 - GLMs and Variable Selection</h1>
+<h1 class="title">Lecture 5a - Generalized Linear Models</h1>
 </div>
 
 
@@ -210,6 +248,575 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="fig/bias-variance-regularized.gif" class="img-fluid"></p>
 <p>Piecewise polynomial fit to nonlinear data (no regularization)</p>
 <p><img src="fig/bias-variance-complex.gif" class="img-fluid"></p>
+</section>
+<section id="poisson-regression" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
+<p><em>Adapted from Introduction to Statistical Learning with Python</em> <a href="https://github.com/intro-stat-learning/ISLP_labs/blob/stable/Ch04-classification-lab.ipynb">(link)</a></p>
+<p>We consider the Bike Share data from class.</p>
+<div id="b1727e6f" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.pyplot <span class="im">import</span> subplots</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ISLP <span class="im">import</span> load_data</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ISLP.models <span class="im">import</span> (ModelSpec <span class="im">as</span> MS,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                         summarize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="58f37206" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Bike <span class="op">=</span> load_data(<span class="st">'Bikeshare'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="50369a67" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Bike.shape, Bike.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<pre><code>((8645, 15),
+ Index(['season', 'mnth', 'day', 'hr', 'holiday', 'weekday', 'workingday',
+        'weathersit', 'temp', 'atemp', 'hum', 'windspeed', 'casual',
+        'registered', 'bikers'],
+       dtype='object'))</code></pre>
+</div>
+</div>
+<div id="b2aa1cc4" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'mnth'</span>, <span class="st">'hr'</span>, <span class="st">'workingday'</span>, <span class="st">'temp'</span>, <span class="st">'weathersit'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="09e2c914" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Bike[<span class="st">'workingday'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>workingday
+1    5911
+0    2734
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="8296005a" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Bike[<span class="st">'weathersit'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="52">
+<pre><code>weathersit
+clear              5645
+cloudy/misty       2218
+light rain/snow     781
+heavy rain/snow       1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="b68a98e0" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> MS([<span class="st">'mnth'</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">'hr'</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'workingday'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'temp'</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'weathersit'</span>]).fit_transform(Bike)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> Bike[<span class="st">'bikers'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="87169cc0" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>Index(['intercept', 'mnth[Feb]', 'mnth[March]', 'mnth[April]', 'mnth[May]',
+       'mnth[June]', 'mnth[July]', 'mnth[Aug]', 'mnth[Sept]', 'mnth[Oct]',
+       'mnth[Nov]', 'mnth[Dec]', 'hr[1]', 'hr[2]', 'hr[3]', 'hr[4]', 'hr[5]',
+       'hr[6]', 'hr[7]', 'hr[8]', 'hr[9]', 'hr[10]', 'hr[11]', 'hr[12]',
+       'hr[13]', 'hr[14]', 'hr[15]', 'hr[16]', 'hr[17]', 'hr[18]', 'hr[19]',
+       'hr[20]', 'hr[21]', 'hr[22]', 'hr[23]', 'workingday', 'temp',
+       'weathersit[cloudy/misty]', 'weathersit[heavy rain/snow]',
+       'weathersit[light rain/snow]'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<div id="dea4767b" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>M_pois <span class="op">=</span> sm.GLM(Y, X, family<span class="op">=</span>sm.families.Poisson()).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7d5bbacc" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>M_pois.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Generalized Linear Model Regression Results</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Dep. Variable:</td>
+<td>bikers</td>
+<td data-quarto-table-cell-role="th">No. Observations:</td>
+<td>8645</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Model:</td>
+<td>GLM</td>
+<td data-quarto-table-cell-role="th">Df Residuals:</td>
+<td>8605</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Model Family:</td>
+<td>Poisson</td>
+<td data-quarto-table-cell-role="th">Df Model:</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Link Function:</td>
+<td>Log</td>
+<td data-quarto-table-cell-role="th">Scale:</td>
+<td>1.0000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Method:</td>
+<td>IRLS</td>
+<td data-quarto-table-cell-role="th">Log-Likelihood:</td>
+<td>-1.4054e+05</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Date:</td>
+<td>Fri, 20 Feb 2026</td>
+<td data-quarto-table-cell-role="th">Deviance:</td>
+<td>2.2804e+05</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Time:</td>
+<td>09:08:05</td>
+<td data-quarto-table-cell-role="th">Pearson chi2:</td>
+<td>2.20e+05</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">No. Iterations:</td>
+<td>7</td>
+<td data-quarto-table-cell-role="th">Pseudo R-squ. (CS):</td>
+<td>1.000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Covariance Type:</td>
+<td>nonrobust</td>
+<td data-quarto-table-cell-role="th"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td></td>
+<td data-quarto-table-cell-role="th">coef</td>
+<td data-quarto-table-cell-role="th">std err</td>
+<td data-quarto-table-cell-role="th">z</td>
+<td data-quarto-table-cell-role="th">P&gt;|z|</td>
+<td data-quarto-table-cell-role="th">[0.025</td>
+<td data-quarto-table-cell-role="th">0.975]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">intercept</td>
+<td>2.6937</td>
+<td>0.010</td>
+<td>277.124</td>
+<td>0.000</td>
+<td>2.675</td>
+<td>2.713</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[Feb]</td>
+<td>0.2260</td>
+<td>0.007</td>
+<td>32.521</td>
+<td>0.000</td>
+<td>0.212</td>
+<td>0.240</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mnth[March]</td>
+<td>0.3764</td>
+<td>0.007</td>
+<td>56.263</td>
+<td>0.000</td>
+<td>0.363</td>
+<td>0.390</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[April]</td>
+<td>0.6917</td>
+<td>0.007</td>
+<td>98.996</td>
+<td>0.000</td>
+<td>0.678</td>
+<td>0.705</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mnth[May]</td>
+<td>0.9106</td>
+<td>0.007</td>
+<td>122.469</td>
+<td>0.000</td>
+<td>0.896</td>
+<td>0.925</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[June]</td>
+<td>0.8934</td>
+<td>0.008</td>
+<td>108.402</td>
+<td>0.000</td>
+<td>0.877</td>
+<td>0.910</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mnth[July]</td>
+<td>0.7738</td>
+<td>0.009</td>
+<td>87.874</td>
+<td>0.000</td>
+<td>0.757</td>
+<td>0.791</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[Aug]</td>
+<td>0.8213</td>
+<td>0.008</td>
+<td>98.573</td>
+<td>0.000</td>
+<td>0.805</td>
+<td>0.838</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mnth[Sept]</td>
+<td>0.9037</td>
+<td>0.008</td>
+<td>118.578</td>
+<td>0.000</td>
+<td>0.889</td>
+<td>0.919</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[Oct]</td>
+<td>0.9377</td>
+<td>0.007</td>
+<td>139.054</td>
+<td>0.000</td>
+<td>0.925</td>
+<td>0.951</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mnth[Nov]</td>
+<td>0.8204</td>
+<td>0.006</td>
+<td>126.334</td>
+<td>0.000</td>
+<td>0.808</td>
+<td>0.833</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mnth[Dec]</td>
+<td>0.6868</td>
+<td>0.006</td>
+<td>108.724</td>
+<td>0.000</td>
+<td>0.674</td>
+<td>0.699</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[1]</td>
+<td>-0.4716</td>
+<td>0.013</td>
+<td>-36.278</td>
+<td>0.000</td>
+<td>-0.497</td>
+<td>-0.446</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[2]</td>
+<td>-0.8088</td>
+<td>0.015</td>
+<td>-55.220</td>
+<td>0.000</td>
+<td>-0.837</td>
+<td>-0.780</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[3]</td>
+<td>-1.4439</td>
+<td>0.019</td>
+<td>-76.631</td>
+<td>0.000</td>
+<td>-1.481</td>
+<td>-1.407</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[4]</td>
+<td>-2.0761</td>
+<td>0.025</td>
+<td>-83.728</td>
+<td>0.000</td>
+<td>-2.125</td>
+<td>-2.027</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[5]</td>
+<td>-1.0603</td>
+<td>0.016</td>
+<td>-65.957</td>
+<td>0.000</td>
+<td>-1.092</td>
+<td>-1.029</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[6]</td>
+<td>0.3245</td>
+<td>0.011</td>
+<td>30.585</td>
+<td>0.000</td>
+<td>0.304</td>
+<td>0.345</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[7]</td>
+<td>1.3296</td>
+<td>0.009</td>
+<td>146.822</td>
+<td>0.000</td>
+<td>1.312</td>
+<td>1.347</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[8]</td>
+<td>1.8313</td>
+<td>0.009</td>
+<td>211.630</td>
+<td>0.000</td>
+<td>1.814</td>
+<td>1.848</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[9]</td>
+<td>1.3362</td>
+<td>0.009</td>
+<td>148.191</td>
+<td>0.000</td>
+<td>1.318</td>
+<td>1.354</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[10]</td>
+<td>1.0912</td>
+<td>0.009</td>
+<td>117.831</td>
+<td>0.000</td>
+<td>1.073</td>
+<td>1.109</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[11]</td>
+<td>1.2485</td>
+<td>0.009</td>
+<td>137.304</td>
+<td>0.000</td>
+<td>1.231</td>
+<td>1.266</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[12]</td>
+<td>1.4340</td>
+<td>0.009</td>
+<td>160.486</td>
+<td>0.000</td>
+<td>1.417</td>
+<td>1.452</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[13]</td>
+<td>1.4280</td>
+<td>0.009</td>
+<td>159.529</td>
+<td>0.000</td>
+<td>1.410</td>
+<td>1.445</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[14]</td>
+<td>1.3793</td>
+<td>0.009</td>
+<td>153.266</td>
+<td>0.000</td>
+<td>1.362</td>
+<td>1.397</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[15]</td>
+<td>1.4081</td>
+<td>0.009</td>
+<td>156.862</td>
+<td>0.000</td>
+<td>1.391</td>
+<td>1.426</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[16]</td>
+<td>1.6287</td>
+<td>0.009</td>
+<td>184.979</td>
+<td>0.000</td>
+<td>1.611</td>
+<td>1.646</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[17]</td>
+<td>2.0490</td>
+<td>0.009</td>
+<td>239.221</td>
+<td>0.000</td>
+<td>2.032</td>
+<td>2.066</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[18]</td>
+<td>1.9667</td>
+<td>0.009</td>
+<td>229.065</td>
+<td>0.000</td>
+<td>1.950</td>
+<td>1.983</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[19]</td>
+<td>1.6684</td>
+<td>0.009</td>
+<td>190.830</td>
+<td>0.000</td>
+<td>1.651</td>
+<td>1.686</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[20]</td>
+<td>1.3706</td>
+<td>0.009</td>
+<td>152.737</td>
+<td>0.000</td>
+<td>1.353</td>
+<td>1.388</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[21]</td>
+<td>1.1186</td>
+<td>0.009</td>
+<td>121.383</td>
+<td>0.000</td>
+<td>1.101</td>
+<td>1.137</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hr[22]</td>
+<td>0.8719</td>
+<td>0.010</td>
+<td>91.429</td>
+<td>0.000</td>
+<td>0.853</td>
+<td>0.891</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hr[23]</td>
+<td>0.4814</td>
+<td>0.010</td>
+<td>47.164</td>
+<td>0.000</td>
+<td>0.461</td>
+<td>0.501</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">workingday</td>
+<td>0.0147</td>
+<td>0.002</td>
+<td>7.502</td>
+<td>0.000</td>
+<td>0.011</td>
+<td>0.018</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">temp</td>
+<td>0.7853</td>
+<td>0.011</td>
+<td>68.434</td>
+<td>0.000</td>
+<td>0.763</td>
+<td>0.808</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">weathersit[cloudy/misty]</td>
+<td>-0.0752</td>
+<td>0.002</td>
+<td>-34.528</td>
+<td>0.000</td>
+<td>-0.080</td>
+<td>-0.071</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">weathersit[heavy rain/snow]</td>
+<td>-0.9263</td>
+<td>0.167</td>
+<td>-5.554</td>
+<td>0.000</td>
+<td>-1.253</td>
+<td>-0.599</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">weathersit[light rain/snow]</td>
+<td>-0.5758</td>
+<td>0.004</td>
+<td>-141.905</td>
+<td>0.000</td>
+<td>-0.584</td>
+<td>-0.568</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="762892aa" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>S_pois <span class="op">=</span> summarize(M_pois)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>coef_month <span class="op">=</span> S_pois[S_pois.index.<span class="bu">str</span>.contains(<span class="st">'mnth'</span>)][<span class="st">'coef'</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>coef_month <span class="op">=</span> pd.concat([pd.Series([<span class="dv">0</span>],</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                                   index<span class="op">=</span>[<span class="st">'mnth[Jan]'</span>]), coef_month])</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>coef_hr <span class="op">=</span> S_pois[S_pois.index.<span class="bu">str</span>.contains(<span class="st">'hr'</span>)][<span class="st">'coef'</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>coef_hr <span class="op">=</span> pd.concat([pd.Series([<span class="dv">0</span>],</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                     index<span class="op">=</span>[<span class="st">'hr[0]'</span>]), coef_hr])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6c3ba3b1" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coef_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+<pre><code>mnth[Jan]      0.0000
+mnth[Feb]      0.2260
+mnth[March]    0.3764
+mnth[April]    0.6917
+mnth[May]      0.9106
+mnth[June]     0.8934
+mnth[July]     0.7738
+mnth[Aug]      0.8213
+mnth[Sept]     0.9037
+mnth[Oct]      0.9377
+mnth[Nov]      0.8204
+mnth[Dec]      0.6868
+dtype: float64</code></pre>
+</div>
+</div>
+<div id="205c5fc1" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_month <span class="op">=</span> np.arange(coef_month.shape[<span class="dv">0</span>])</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_hr <span class="op">=</span> np.arange(coef_hr.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5f9c1d0c" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig_pois, (ax_month, ax_hr) <span class="op">=</span> subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">8</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ax_month.plot(x_month, coef_month, marker<span class="op">=</span><span class="st">'o'</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ax_month.set_xticks(x_month)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ax_month.set_xticklabels([l[<span class="dv">5</span>] <span class="cf">for</span> l <span class="kw">in</span> coef_month.index], fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ax_month.set_xlabel(<span class="st">'Month'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ax_month.set_ylabel(<span class="st">'Coefficient'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ax_hr.plot(x_hr, coef_hr, marker<span class="op">=</span><span class="st">'o'</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>ax_hr.set_xticklabels(<span class="bu">range</span>(<span class="dv">24</span>)[::<span class="dv">2</span>], fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ax_hr.set_xlabel(<span class="st">'Hour'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>ax_hr.set_ylabel(<span class="st">'Coefficient'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/f0/m7l23y8s7p3_0x04b3td9nyjr2hyc8/T/ipykernel_32584/2375041217.py:8: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax_hr.set_xticklabels(range(24)[::2], fontsize=20);</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lec5_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>

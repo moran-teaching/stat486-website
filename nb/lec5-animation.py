@@ -4,6 +4,9 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
 
 # Generate true underlying data
 np.random.seed(42)
@@ -94,6 +97,7 @@ def fit_spline_regularized(X_train, y_train, X_plot):
     return model(X_plot)
 
 def fit_spline_unregularized(X_train, y_train, X_plot):
+
     model = UnivariateSpline(X_train, y_train, k=3, s=0)
     return model(X_plot)
 
