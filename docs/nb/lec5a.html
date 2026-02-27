@@ -104,6 +104,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="styles.css">
@@ -141,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/lec5.html">Lecture 5a - Generalized Linear Models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../nb/lec5a.html">Lecture 5a - Generalized Linear Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -199,8 +242,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../nb/lec5.html" class="sidebar-item-text sidebar-link active">
+  <a href="../nb/lec5a.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 5a - Generalized Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../nb/lec5b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5b - Variable Selection</span></a>
   </div>
 </li>
     </ul>
@@ -213,10 +262,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bias-variance-illustration" id="toc-bias-variance-illustration" class="nav-link active" data-scroll-target="#bias-variance-illustration">Bias-Variance Illustration</a></li>
+  <li><a href="#bias-variance-illustration" id="toc-bias-variance-illustration" class="nav-link active" data-scroll-target="#bias-variance-illustration">Bias-Variance Illustration</a>
+  <ul class="collapse">
+  <li><a href="#linear-regression-fit-to-nonlinear-data" id="toc-linear-regression-fit-to-nonlinear-data" class="nav-link" data-scroll-target="#linear-regression-fit-to-nonlinear-data">Linear regression fit to nonlinear data</a></li>
+  <li><a href="#piecewise-polynomial-fit-to-nonlinear-data-with-regularization" id="toc-piecewise-polynomial-fit-to-nonlinear-data-with-regularization" class="nav-link" data-scroll-target="#piecewise-polynomial-fit-to-nonlinear-data-with-regularization">Piecewise polynomial fit to nonlinear data (with regularization)</a></li>
+  <li><a href="#piecewise-polynomial-fit-to-nonlinear-data-no-regularization" id="toc-piecewise-polynomial-fit-to-nonlinear-data-no-regularization" class="nav-link" data-scroll-target="#piecewise-polynomial-fit-to-nonlinear-data-no-regularization">Piecewise polynomial fit to nonlinear data (no regularization)</a></li>
+  </ul></li>
   <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression">Poisson Regression</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5a.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -242,18 +296,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="bias-variance-illustration" class="level2">
 <h2 class="anchored" data-anchor-id="bias-variance-illustration">Bias-Variance Illustration</h2>
-<p>Linear regression fit to nonlinear data</p>
+<p>Suppose we have fit a model <span class="math inline">\widehat{f}(x)</span> to some training data <span class="math inline">\{{X}_i,{Y}_i\}_{i=1}^n</span>. Let <span class="math inline">(x_0, y_0)</span> be a test observation from the population. The true model is <span class="math inline">Y=f(X)+\varepsilon</span> (where <span class="math inline">f(x)=\mathbb{E}[Y|X=x]</span>). Then the MSE of the test data is: <span class="math display">\begin{align*}
+\mathbb{E}[(y_0-\widehat{f}(x_0))^2] = \mathrm{Var}(\varepsilon) + [\mathrm{Bias}(\widehat{f}(x_0))]^2 + \mathrm{Var}(\widehat{f}(x_0))
+\end{align*}</span> where <span class="math inline">\mathrm{Bias}(\widehat{f}(x_0)) = \mathbb{E}[\widehat{f}(x_0)] - f(x_0)</span>.</p>
+<p>The expectation <span class="math inline">\mathbb{E}</span> averages over the variability of <span class="math inline">y_0</span> as well as variability in the training data.</p>
+<p>Below we compare different models to predict <span class="math inline">Y</span> from <span class="math inline">X</span> where the true relationship is nonlinear.</p>
+<ul>
+<li>Left: Plot of true function, draw of training data, fit to the training data</li>
+<li>Middle: Plot of fitted functions for different training datasets (to give a visual of variance of <span class="math inline">\widehat{f}</span>)</li>
+<li>Right: Plot of average of fitted functions and true function (to give a visual of bias of <span class="math inline">\mathbb{E}[\widehat{f}(x)]</span>)</li>
+</ul>
+<section id="linear-regression-fit-to-nonlinear-data" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression-fit-to-nonlinear-data">Linear regression fit to nonlinear data</h3>
 <p><img src="fig/bias-variance-simple.gif" class="img-fluid"></p>
-<p>Piecewise polynomial fit to nonlinear data (with regularization)</p>
+</section>
+<section id="piecewise-polynomial-fit-to-nonlinear-data-with-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="piecewise-polynomial-fit-to-nonlinear-data-with-regularization">Piecewise polynomial fit to nonlinear data (with regularization)</h3>
 <p><img src="fig/bias-variance-regularized.gif" class="img-fluid"></p>
-<p>Piecewise polynomial fit to nonlinear data (no regularization)</p>
+</section>
+<section id="piecewise-polynomial-fit-to-nonlinear-data-no-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="piecewise-polynomial-fit-to-nonlinear-data-no-regularization">Piecewise polynomial fit to nonlinear data (no regularization)</h3>
 <p><img src="fig/bias-variance-complex.gif" class="img-fluid"></p>
+</section>
 </section>
 <section id="poisson-regression" class="level2">
 <h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
 <p><em>Adapted from Introduction to Statistical Learning with Python</em> <a href="https://github.com/intro-stat-learning/ISLP_labs/blob/stable/Ch04-classification-lab.ipynb">(link)</a></p>
 <p>We consider the Bike Share data from class.</p>
-<div id="b1727e6f" class="cell">
+<div id="b1727e6f" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.pyplot <span class="im">import</span> subplots</span>
@@ -262,12 +332,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ISLP.models <span class="im">import</span> (ModelSpec <span class="im">as</span> MS,</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                         summarize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="58f37206" class="cell" data-execution_count="48">
+<div id="58f37206" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Bike <span class="op">=</span> load_data(<span class="st">'Bikeshare'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="50369a67" class="cell" data-execution_count="49">
+<div id="50369a67" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Bike.shape, Bike.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>((8645, 15),
  Index(['season', 'mnth', 'day', 'hr', 'holiday', 'weekday', 'workingday',
         'weathersit', 'temp', 'atemp', 'hum', 'windspeed', 'casual',
@@ -275,21 +345,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        dtype='object'))</code></pre>
 </div>
 </div>
-<div id="b2aa1cc4" class="cell" data-execution_count="50">
+<div id="b2aa1cc4" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'mnth'</span>, <span class="st">'hr'</span>, <span class="st">'workingday'</span>, <span class="st">'temp'</span>, <span class="st">'weathersit'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="09e2c914" class="cell" data-execution_count="51">
+<div id="09e2c914" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Bike[<span class="st">'workingday'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>workingday
 1    5911
 0    2734
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="8296005a" class="cell" data-execution_count="52">
+<div id="8296005a" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Bike[<span class="st">'weathersit'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="52">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>weathersit
 clear              5645
 cloudy/misty       2218
@@ -298,7 +368,7 @@ heavy rain/snow       1
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="b68a98e0" class="cell" data-execution_count="53">
+<div id="b68a98e0" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> MS([<span class="st">'mnth'</span>,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">'hr'</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'workingday'</span>,</span>
@@ -306,9 +376,9 @@ Name: count, dtype: int64</code></pre>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'weathersit'</span>]).fit_transform(Bike)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> Bike[<span class="st">'bikers'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="87169cc0" class="cell" data-execution_count="54">
+<div id="87169cc0" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>Index(['intercept', 'mnth[Feb]', 'mnth[March]', 'mnth[April]', 'mnth[May]',
        'mnth[June]', 'mnth[July]', 'mnth[Aug]', 'mnth[Sept]', 'mnth[Oct]',
        'mnth[Nov]', 'mnth[Dec]', 'hr[1]', 'hr[2]', 'hr[3]', 'hr[4]', 'hr[5]',
@@ -320,12 +390,12 @@ Name: count, dtype: int64</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="dea4767b" class="cell" data-execution_count="55">
+<div id="dea4767b" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>M_pois <span class="op">=</span> sm.GLM(Y, X, family<span class="op">=</span>sm.families.Poisson()).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7d5bbacc" class="cell" data-execution_count="56">
+<div id="7d5bbacc" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>M_pois.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Generalized Linear Model Regression Results</caption>
 <tbody>
@@ -361,13 +431,13 @@ Name: count, dtype: int64</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Fri, 20 Feb 2026</td>
+<td>Mon, 23 Feb 2026</td>
 <td data-quarto-table-cell-role="th">Deviance:</td>
 <td>2.2804e+05</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>09:08:05</td>
+<td>13:27:35</td>
 <td data-quarto-table-cell-role="th">Pearson chi2:</td>
 <td>2.20e+05</td>
 </tr>
@@ -762,7 +832,7 @@ Name: count, dtype: int64</code></pre>
 </table>
 </div>
 </div>
-<div id="762892aa" class="cell" data-execution_count="57">
+<div id="762892aa" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>S_pois <span class="op">=</span> summarize(M_pois)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>coef_month <span class="op">=</span> S_pois[S_pois.index.<span class="bu">str</span>.contains(<span class="st">'mnth'</span>)][<span class="st">'coef'</span>]</span>
@@ -772,9 +842,9 @@ Name: count, dtype: int64</code></pre>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>coef_hr <span class="op">=</span> pd.concat([pd.Series([<span class="dv">0</span>],</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                     index<span class="op">=</span>[<span class="st">'hr[0]'</span>]), coef_hr])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6c3ba3b1" class="cell" data-execution_count="58">
+<div id="6c3ba3b1" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coef_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>mnth[Jan]      0.0000
 mnth[Feb]      0.2260
 mnth[March]    0.3764
@@ -790,11 +860,11 @@ mnth[Dec]      0.6868
 dtype: float64</code></pre>
 </div>
 </div>
-<div id="205c5fc1" class="cell" data-execution_count="59">
+<div id="205c5fc1" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_month <span class="op">=</span> np.arange(coef_month.shape[<span class="dv">0</span>])</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_hr <span class="op">=</span> np.arange(coef_hr.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5f9c1d0c" class="cell">
+<div id="5f9c1d0c" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig_pois, (ax_month, ax_hr) <span class="op">=</span> subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">8</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ax_month.plot(x_month, coef_month, marker<span class="op">=</span><span class="st">'o'</span>, ms<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ax_month.set_xticks(x_month)</span>
@@ -806,13 +876,13 @@ dtype: float64</code></pre>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ax_hr.set_xlabel(<span class="st">'Hour'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>ax_hr.set_ylabel(<span class="st">'Coefficient'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/f0/m7l23y8s7p3_0x04b3td9nyjr2hyc8/T/ipykernel_32584/2375041217.py:8: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
-  ax_hr.set_xticklabels(range(24)[::2], fontsize=20);</code></pre>
+<pre><code>/var/folders/f0/m7l23y8s7p3_0x04b3td9nyjr2hyc8/T/ipykernel_28453/3779510511.py:8: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax_hr.set_xticklabels(range(24)[::2], fontsize=20)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="lec5_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="lec5a_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1244,4 +1314,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/moran-teaching/stat486-website/blob/main/nb/lec5a.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>

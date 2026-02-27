@@ -19,7 +19,8 @@ website:
       - nb/lec2b.ipynb
       - nb/lec3.ipynb
       - nb/lec4.ipynb
-      - nb/lec5.ipynb
+      - nb/lec5a.ipynb
+      - nb/lec5b.ipynb
   repo-url: https://github.com/moran-teaching/stat486-website   
   repo-branch: main                                             
   repo-actions: [source] 
