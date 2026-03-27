@@ -300,7 +300,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="2">
+<div id="cell-1" class="cell" data-execution_count="122">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -319,13 +319,13 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="housing-dataset">Housing Dataset</h3>
 <p>We consider the <a href="https://www.kaggle.com/datasets/harlfoxem/housesalesprediction">Kings County housing dataset</a>. It includes homes sold between May 2014 and May 2015.</p>
 <p>Specifically, we focuse on the Rainier Valley zipcode.</p>
-<div id="cell-4" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution_count="123">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>house <span class="op">=</span> pd.read_csv(<span class="st">"data/rainier_valley_house.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-5" class="cell" data-execution_count="124">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>house.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="124">
 <pre><code>Index(['Unnamed: 0', 'id', 'date', 'price', 'bedrooms', 'bathrooms',
        'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view', 'condition',
        'grade', 'sqft_above', 'sqft_basement', 'yr_built', 'yr_renovated',
@@ -333,7 +333,7 @@ window.Quarto = {
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5">
+<div id="cell-6" class="cell" data-execution_count="125">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will consider this subset of features</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"floors"</span>, <span class="st">"grade"</span>, <span class="st">"condition"</span>, <span class="st">"view"</span>, <span class="st">"sqft_living"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sqft_lot"</span>, <span class="st">"sqft_basement"</span>, <span class="st">"yr_built"</span>, <span class="st">"yr_renovated"</span>,</span>
@@ -353,7 +353,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="linear-regression-formula">Linear Regression Formula</h3>
 <p>We compute the regression coefficients using the formula:</p>
 <p><span class="math display">\widehat{\beta} = (X^\top X)^{-1}X^\top y</span></p>
-<div id="cell-8" class="cell" data-execution_count="6">
+<div id="cell-8" class="cell" data-execution_count="126">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## linear regression</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X_stan1 <span class="op">=</span> np.hstack([np.ones((X_stan.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_stan])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(X_stan1, Y, test_size<span class="op">=</span><span class="dv">100</span>, train_size<span class="op">=</span><span class="dv">400</span>, random_state<span class="op">=</span><span class="dv">2</span>)</span>
@@ -399,15 +399,15 @@ Test R-squared of linear regression: 0.688</code></pre>
 <section id="using-statsmodels" class="level3">
 <h3 class="anchored" data-anchor-id="using-statsmodels">Using <code>statsmodels</code></h3>
 <p>We can also use <code>statsmodels</code> to run linear regression for us:</p>
-<div id="cell-10" class="cell" data-execution_count="7">
+<div id="cell-10" class="cell" data-execution_count="127">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(Y_train, X_train)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-11" class="cell" data-execution_count="128">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results.params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="128">
 <pre><code>const    397.666919
 x1         7.705884
 x2        44.059690
@@ -425,10 +425,10 @@ x13       29.815873
 dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="9">
+<div id="cell-12" class="cell" data-execution_count="129">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coeffs <span class="op">=</span> results.params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="10">
+<div id="cell-13" class="cell" data-execution_count="130">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> results.get_prediction(X_test)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> Y_pred.predicted_mean</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -449,9 +449,9 @@ Test R-squared of linear regression: 0.688</code></pre>
 <h3 class="anchored" data-anchor-id="inference">Inference</h3>
 <section id="t-tests-for-coefficients" class="level4">
 <h4 class="anchored" data-anchor-id="t-tests-for-coefficients">t-tests for coefficients</h4>
-<div id="cell-15" class="cell" data-execution_count="11">
+<div id="cell-15" class="cell" data-execution_count="131">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>results.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="131">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -475,13 +475,13 @@ Test R-squared of linear regression: 0.688</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Fri, 13 Feb 2026</td>
+<td>Mon, 02 Mar 2026</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>8.70e-101</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:04:41</td>
+<td>16:16:27</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-2349.3</td>
 </tr>
@@ -685,14 +685,14 @@ Test R-squared of linear regression: 0.688</code></pre>
 <br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="12">
+<div id="cell-16" class="cell" data-execution_count="132">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract confidence intervals from the summary table</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>conf_int <span class="op">=</span> results.conf_int()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="using-the-bootstrap" class="level4">
 <h4 class="anchored" data-anchor-id="using-the-bootstrap">Using the bootstrap</h4>
-<div id="cell-18" class="cell" data-execution_count="13">
+<div id="cell-18" class="cell" data-execution_count="133">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Y_train <span class="op">=</span> Y_train.to_numpy()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n_train <span class="op">=</span> X_train.shape[<span class="dv">0</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -711,7 +711,7 @@ Test R-squared of linear regression: 0.688</code></pre>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    boot_bhats[b, :] <span class="op">=</span> boot_result.params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="fig/boot_linreg.gif" class="img-fluid"></p>
-<div id="cell-20" class="cell" data-execution_count="14">
+<div id="cell-20" class="cell" data-execution_count="134">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>bins_beta <span class="op">=</span> np.linspace(boot_bhats[:, <span class="dv">4</span>].<span class="bu">min</span>(), boot_bhats[:, <span class="dv">4</span>].<span class="bu">max</span>(), <span class="dv">20</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
@@ -728,10 +728,10 @@ Test R-squared of linear regression: 0.688</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="15">
+<div id="cell-21" class="cell" data-execution_count="135">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>beta_sds <span class="op">=</span> np.std(boot_bhats, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="16">
+<div id="cell-22" class="cell" data-execution_count="136">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confidence interval</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lower_quantiles <span class="op">=</span> beta <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>upper_quantiles <span class="op">=</span> beta <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> beta_sds</span>
@@ -765,7 +765,7 @@ long: (19.281, 40.350)</code></pre>
 <h2 class="anchored" data-anchor-id="overfitting">Overfitting</h2>
 <section id="example-with-np" class="level3">
 <h3 class="anchored" data-anchor-id="example-with-np">Example with <span class="math inline">n=p</span></h3>
-<div id="cell-24" class="cell" data-execution_count="17">
+<div id="cell-24" class="cell" data-execution_count="137">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate data from linear model</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>n_train <span class="op">=</span> <span class="dv">30</span></span>
@@ -800,7 +800,7 @@ Test error: 8.11</code></pre>
 </section>
 <section id="example-with-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="example-with-polynomials">Example with polynomials</h3>
-<div id="cell-26" class="cell" data-execution_count="18">
+<div id="cell-26" class="cell" data-execution_count="138">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(n))</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> <span class="fl">0.2</span> <span class="op">*</span> np.random.normal(size<span class="op">=</span>(n))</span>
@@ -848,9 +848,9 @@ Test error: 8.11</code></pre>
 </div>
 </div>
 <p>Some coefficients are very large:</p>
-<div id="cell-28" class="cell" data-execution_count="19">
+<div id="cell-28" class="cell" data-execution_count="139">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>np.sort(<span class="op">-</span>betahat)  <span class="co"># np.sort is smallest to largest - use negative for largest to smallest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="139">
 <pre><code>array([ 2.75524984e+07,  7.25216625e+06,  3.51473556e+06,  3.01842642e+05,
         1.01149788e+03, -2.54649723e+00, -2.80791410e+04, -7.56886527e+05,
        -1.53581036e+06, -1.31515994e+07, -2.31322672e+07])</code></pre>
@@ -863,7 +863,7 @@ Test error: 8.11</code></pre>
 <p>Ridge regularization shrinks coefficients <span class="math inline">\beta</span>. The formula is:</p>
 <p><span class="math display">\widehat{\beta} = (X^\top X + \lambda \bm{I})^{-1}X^\top y</span></p>
 <p>We now consider a movies dataset where we want to predict revenue from the genre and other features.</p>
-<div id="cell-30" class="cell" data-execution_count="20">
+<div id="cell-30" class="cell" data-execution_count="140">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> pd.read_csv(<span class="st">"data/movies.csv"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -878,7 +878,7 @@ Test error: 8.11</code></pre>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># List of features</span></span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"Action"</span>, <span class="st">"Crime"</span>, <span class="st">"Comedy"</span>,</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Adventure"</span>, <span class="st">"Drama"</span>, <span class="st">"Fantasy"</span>, <span class="st">"Foreign"</span>, <span class="st">"Music"</span>, <span class="st">"Western"</span>,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Adventure"</span>, <span class="st">"Drama"</span>, <span class="st">"Fantasy"</span>, <span class="st">"Music"</span>, <span class="st">"Western"</span>,</span>
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Science Fiction"</span>, <span class="st">"Mystery"</span>, <span class="st">"Family"</span>, <span class="st">"Horror"</span>, <span class="st">"Romance"</span>, </span>
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>             <span class="st">"runtime"</span>, <span class="st">"budget"</span>]</span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -893,114 +893,123 @@ Test error: 8.11</code></pre>
 <span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>X<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>X_stan <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column of ones to include the intercept in the model</span></span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>X_stan <span class="op">=</span> np.hstack([np.ones((X_stan.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_stan])</span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into test, learning (further divided into train and validation), and training sets</span></span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>n_learn <span class="op">=</span> <span class="dv">600</span></span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>n_test <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into test, learning (further divided into train and validation), and training sets</span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>n_learn <span class="op">=</span> <span class="dv">600</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>n_test <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>Y_test <span class="op">=</span> Y.iloc[:n_test]</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>Y_learn <span class="op">=</span> Y.iloc[n_test:n_test<span class="op">+</span>n_learn]</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X.iloc[:n_test, :]</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>X_learn <span class="op">=</span> X.iloc[n_test:n_test<span class="op">+</span>n_learn, :]</span>
 <span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>Y_test <span class="op">=</span> Y.iloc[:n_test]</span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>Y_learn <span class="op">=</span> Y.iloc[n_test:n_test<span class="op">+</span>n_learn]</span>
-<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X_stan[:n_test, :]</span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>X_learn <span class="op">=</span> X_stan[n_test:n_test<span class="op">+</span>n_learn, :]</span>
-<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Candidate set for lambda</span></span>
-<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>candidate_set <span class="op">=</span> np.concatenate([[<span class="dv">0</span>], <span class="dv">2</span> <span class="op">**</span> np.arange(<span class="op">-</span><span class="dv">5</span>, <span class="dv">10</span>, <span class="fl">.5</span>)])</span>
-<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>stan_features <span class="op">=</span> [<span class="st">"runtime"</span>, <span class="st">"budget"</span>]</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>stan_mean <span class="op">=</span> X_learn[stan_features].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>stan_sd <span class="op">=</span> X_learn[stan_features].std(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>X_stan <span class="op">=</span> X_learn</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>X_stan[stan_features] <span class="op">=</span> (X_learn[stan_features] <span class="op">-</span> stan_mean) <span class="op">/</span> stan_sd</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column of ones to include the intercept in the model</span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>X_stan <span class="op">=</span> np.hstack([np.ones((X_stan.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_stan])</span>
 <span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.arange(n_learn)</span>
-<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>folds <span class="op">=</span> indices.reshape(K, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Candidate set for lambda</span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>candidate_set <span class="op">=</span> np.concatenate([[<span class="dv">0</span>], <span class="dv">2</span> <span class="op">**</span> np.arange(<span class="op">-</span><span class="dv">5</span>, <span class="dv">10</span>, <span class="fl">.5</span>)])</span>
 <span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>validerr <span class="op">=</span> np.zeros((K, <span class="bu">len</span>(candidate_set)))</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(K):</span>
-<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>    valid_ix <span class="op">=</span> folds[k, :]</span>
-<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>    train_ix <span class="op">=</span> np.delete(indices, folds[k, :])</span>
-<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>    X_valid <span class="op">=</span> X_learn[valid_ix, :]</span>
-<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    Y_valid <span class="op">=</span> Y_learn.iloc[valid_ix]</span>
-<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    X_train <span class="op">=</span> X_learn[train_ix, :]</span>
-<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>    Y_train <span class="op">=</span> Y_learn.iloc[train_ix]</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.arange(n_learn)</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>folds <span class="op">=</span> indices.reshape(K, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>validerr <span class="op">=</span> np.zeros((K, <span class="bu">len</span>(candidate_set)))</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(K):</span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    valid_ix <span class="op">=</span> folds[k, :]</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>    train_ix <span class="op">=</span> np.delete(indices, folds[k, :])</span>
 <span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, lambda_val <span class="kw">in</span> <span class="bu">enumerate</span>(candidate_set):</span>
-<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>        beta_lambda <span class="op">=</span> solve(X_train.T <span class="op">@</span> X_train <span class="op">+</span> lambda_val <span class="op">*</span> np.eye(X_train.shape[<span class="dv">1</span>]), </span>
-<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>                            X_train.T <span class="op">@</span> Y_train)</span>
-<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>        Y_lambda <span class="op">=</span> X_valid <span class="op">@</span> beta_lambda</span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>    X_valid <span class="op">=</span> X_stan[valid_ix, :]</span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a>    Y_valid <span class="op">=</span> Y_learn.iloc[valid_ix]</span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>    X_train <span class="op">=</span> X_stan[train_ix, :]</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>    Y_train <span class="op">=</span> Y_learn.iloc[train_ix]</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, lambda_val <span class="kw">in</span> <span class="bu">enumerate</span>(candidate_set):</span>
 <span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>        validerr[k, j] <span class="op">=</span> np.sqrt(np.mean((Y_valid <span class="op">-</span> Y_lambda) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>mean_valid_errs <span class="op">=</span> validerr.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>min_ix <span class="op">=</span> np.argmin(mean_valid_errs)</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>        beta_lambda <span class="op">=</span> solve(X_train.T <span class="op">@</span> X_train <span class="op">+</span> lambda_val <span class="op">*</span> np.eye(X_train.shape[<span class="dv">1</span>]), </span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>                            X_train.T <span class="op">@</span> Y_train)</span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>        Y_lambda <span class="op">=</span> X_valid <span class="op">@</span> beta_lambda</span>
 <span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>lambda_best <span class="op">=</span> candidate_set[min_ix]</span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>        validerr[k, j] <span class="op">=</span> np.sqrt(np.mean((Y_valid <span class="op">-</span> Y_lambda) <span class="op">**</span> <span class="dv">2</span>))</span>
 <span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>beta_best <span class="op">=</span> solve(X_learn.T <span class="op">@</span> X_learn <span class="op">+</span> lambda_best <span class="op">*</span> np.eye(X_learn.shape[<span class="dv">1</span>]), </span>
-<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a>                  X_learn.T <span class="op">@</span> Y_learn)</span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>mean_valid_errs <span class="op">=</span> validerr.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a>min_ix <span class="op">=</span> np.argmin(mean_valid_errs)</span>
 <span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> X_test <span class="op">@</span> beta_best</span>
-<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a>Y_baseline <span class="op">=</span> Y_learn.mean()</span>
-<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a><span class="co">## print coefficients</span></span>
-<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Coefficients: "</span>)</span>
-<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intercept: </span><span class="sc">{</span>beta_best[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(features)):</span>
-<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>features[i]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>beta_best[i<span class="op">+</span><span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a>lambda_best <span class="op">=</span> candidate_set[min_ix]</span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>beta_best <span class="op">=</span> solve(X_stan.T <span class="op">@</span> X_stan <span class="op">+</span> lambda_best <span class="op">*</span> np.eye(X_stan.shape[<span class="dv">1</span>]), </span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>                  X_stan.T <span class="op">@</span> Y_learn)</span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a>X_test_stan <span class="op">=</span> X_test</span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a>X_test_stan[stan_features] <span class="op">=</span> (X_test_stan[stan_features] <span class="op">-</span> stan_mean)<span class="op">/</span>stan_sd</span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a>X_test_stan <span class="op">=</span> np.hstack([np.ones((X_test_stan.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X_test_stan])</span>
 <span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate test error</span></span>
-<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>test_error <span class="op">=</span> np.sqrt(np.mean((Y_test <span class="op">-</span> Y_pred) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a>baseline_error <span class="op">=</span> np.sqrt(np.mean((Y_test <span class="op">-</span> Y_baseline) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a><span class="co">## print errors and R^2 with 2 sig figs</span></span>
-<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test Error: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(test_error))</span>
-<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline Error: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(baseline_error))</span>
-<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test R-squared: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">1</span> <span class="op">-</span> test_error <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> baseline_error <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> X_test_stan <span class="op">@</span> beta_best</span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>Y_baseline <span class="op">=</span> Y_learn.mean()</span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a><span class="co">## print coefficients</span></span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Coefficients: "</span>)</span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intercept: </span><span class="sc">{</span>beta_best[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(features)):</span>
+<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>features[i]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>beta_best[i<span class="op">+</span><span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb27-99"><a href="#cb27-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a><span class="co">## plot cross validation errors</span></span>
-<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a>plt.plot(candidate_set, mean_valid_errs)</span>
-<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>lambda_best, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Lambda"</span>)</span>
-<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Validation Error"</span>)</span>
-<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cross Validation Error"</span>)</span>
-<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span>
-<span id="cb27-109"><a href="#cb27-109" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate test error</span></span>
+<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a>test_error <span class="op">=</span> np.sqrt(np.mean((Y_test <span class="op">-</span> Y_pred) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a>baseline_error <span class="op">=</span> np.sqrt(np.mean((Y_test <span class="op">-</span> Y_baseline) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a><span class="co">## print errors and R^2 with 2 sig figs</span></span>
+<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test Error: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(test_error))</span>
+<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline Error: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(baseline_error))</span>
+<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test R-squared: </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">1</span> <span class="op">-</span> test_error <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> baseline_error <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of features: 16
+<pre><code>Number of features: 15
 Coefficients: 
-Intercept: 176.04
-Action: -11.09
-Crime: -6.64
-Comedy: -5.66
-Adventure: 25.45
-Drama: -19.20
-Fantasy: 9.59
-Foreign: -4.93
-Music: -1.61
-Western: -5.70
-Science Fiction: 13.80
-Mystery: -1.23
-Family: 15.01
-Horror: 5.08
-Romance: 1.78
-runtime: 45.09
-budget: 139.72
-Test Error: 163.43
+Intercept: 141.06
+Action: -2.19
+Crime: -9.17
+Comedy: 7.34
+Adventure: 60.97
+Drama: -14.00
+Fantasy: 30.55
+Music: 0.94
+Western: -6.38
+Science Fiction: 38.08
+Mystery: 4.88
+Family: 41.90
+Horror: 25.08
+Romance: 7.92
+runtime: 40.96
+budget: 136.16
+Test Error: 163.78
 Baseline Error: 260.98
 Test R-squared: 0.61</code></pre>
 </div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="141">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">## plot cross validation errors</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.plot(candidate_set, mean_valid_errs)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>lambda_best, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Lambda"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Validation Error"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cross Validation Error"</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="lec3_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="lec3_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
