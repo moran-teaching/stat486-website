@@ -25,6 +25,9 @@ website:
       - nb/lec7b.ipynb
       - nb/lec8.ipynb
       - nb/lec9.ipynb
+      - section: nb/lec10.ipynb
+        contents:
+        - nb/lec10-gpt.qmd  
   repo-url: https://github.com/moran-teaching/stat486-website   
   repo-branch: main                                             
   repo-actions: [source] 
