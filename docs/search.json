@@ -351,7 +351,7 @@
     "href": "nb/lec10.html#transformer",
     "title": "Lecture 10 - Transformers",
     "section": "Transformer",
-    "text": "Transformer\nHere is a small GPT model from Andrej Karpathy.",
+    "text": "Transformer\nHere is a small GPT model from Andrej Karpathy.\n Understanding Deep Learning (Prince), Figure 12.12",
     "crumbs": [
       "Home",
       "Lecture 10 - Transformers"
@@ -362,7 +362,7 @@
     "href": "nb/lec10.html#tokenization",
     "title": "Lecture 10 - Transformers",
     "section": "Tokenization",
-    "text": "Tokenization\nTokenization is the process of turning text into discrete units (called tokens). We saw we could map letters to numbers as we did with Tiny Shakespeare. However, this can be very inefficient.\nMany modern tokenizers use an algorithm such as byte pair encoding that greedily merges commonly occurring sub-strings based on their frequency.\nUnderstanding Deep Learning, Figure 12.8\n\n\n\nUnderstanding Deep Learning\n\n\nTikTokenizer is a nice tool to see how LLMs encode text into tokens:\nTokenization is at the heart of much weirdness of LLMs. \n\n127 + 456 = 583\n\nApple.\nI have an apple.\napple.\nApple.\n\nfor i in range(1, 101):\n    if i % 2 == 0:\n        print(\"hello world\")",
+    "text": "Tokenization\nTokenization is the process of turning text into discrete units (called tokens). We saw we could map letters to numbers as we did with Tiny Shakespeare. However, this can be very inefficient.\nMany modern tokenizers use an algorithm such as byte pair encoding that greedily merges commonly occurring sub-strings based on their frequency.\nUnderstanding Deep Learning (Prince), Figure 12.8\n\n\n\nUnderstanding Deep Learning\n\n\nTikTokenizer is a nice tool to see how LLMs encode text into tokens:\nTokenization is at the heart of much weirdness of LLMs. \n\n127 + 456 = 583\n\nApple.\nI have an apple.\napple.\nApple.\n\nfor i in range(1, 101):\n    if i % 2 == 0:\n        print(\"hello world\")",
     "crumbs": [
       "Home",
       "Lecture 10 - Transformers"
